@@ -71,7 +71,7 @@ export default function Header() {
   </DropdownMenuContent>
 </DropdownMenu>
 </Link>
-<Link href={'/about-us'}><li>About</li></Link>
+<Link href={'/about-us'}><li>Ram</li></Link>
 <Link href={'/blog'}><li>Blog</li></Link>
 <Link href={'/contact'}><li>Contact</li></Link>
 <Link href={'/pages'}><li>Pages</li></Link>
