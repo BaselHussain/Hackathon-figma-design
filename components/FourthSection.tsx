@@ -12,10 +12,10 @@ const Montserratfont=Montserrat({
 export default function FourthSection() {
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full bg-[#23856d] text-white max-w-[1440px] max-h-[1300px] md:max-h-[709px]`}>
-  <div className="w-[75%] mx-auto flex flex-col md:flex-row md:justify-between h-[75%] pt-20 space-y-10 md:space-y-0 md:space-x-32">
+    <div className={`${Montserratfont.className} container w-full max-w-[1439px] bg-[#23856d] text-white   `}>
+  <div className="w-[85%] lg:w-[75%] mx-auto flex flex-col md:flex-row md:justify-between md:items-center h-full pt-20 space-y-10 md:space-y-0 md:space-x-32">
     
-    <div className="text-div flex flex-col space-y-8 order-1 md:order-none lg:mt-10">
+    <div className="text-div md:pb-16 lg:pb-0 flex flex-col space-y-8 order-1 md:order-none lg:mt-10">
       <h3 className="font-bold">Summer 2020</h3>
       <h1 className="text-4xl font-bold">Vita Classic Product</h1>
       <p>
@@ -33,7 +33,7 @@ export default function FourthSection() {
     </div>
 
     
-    <div className="image-div order-2 md:order-none">
+    <div className="image-div w-full h-full order-2 md:order-none">
       <Image
         src={"/images/hero-man.png"}
         alt="heroman"

@@ -4,7 +4,7 @@ import React from 'react'
 export default function HeroImage() {
   return (
     <>
-<div className='container  w-full'>
+<div className='container max-w-[1439px]   w-full'>
 <Image
 src={'/images/hero-image.png'}
 alt='hero-image'

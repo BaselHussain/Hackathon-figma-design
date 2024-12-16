@@ -12,7 +12,7 @@ export default function SecondSection() {
   return (
     <>
     <div
-  className={`${Montserratfont.className} container w-full py-8 md:py-16 md:h-auto`}
+  className={`${Montserratfont.className} container w-full max-w-[1439px] py-8 md:py-16 md:h-auto`}
 >
   <div className="second-container w-[90%] lg:w-[80%] mx-auto">
     {/* Header Section */}
@@ -54,25 +54,25 @@ export default function SecondSection() {
       </div>
 
       {/* Small Image 1 */}
-      <div className='relative'>
+      <div className='relative h-[100%]'>
         <Image
           src={'/images/japanes-girl.png'}
           alt="japanese-girl"
           width={1000}
           height={1000}
-          className="h-[242px] md:h-full object-cover  w-[300px] md:w-full mx-auto md:mx-0"
+          className="h-full object-cover  w-[300px] md:w-full mx-auto md:mx-0"
         />
         <Button className='absolute left-14 md:left-3 bottom-5 bg-white text-black rounded-sm font-bold uppercase px-6 py-4 hover:text-white'>Accessories</Button>
       </div>
 
       {/* Small Image 2 */}
-      <div className='relative'>
+      <div className='relative h-[100%]'>
         <Image
           src={'/images/yellow-boy.png'}
           alt="yellow-boy"
           width={1000}
           height={1000}
-          className="h-[242px] md:h-full object-cover w-[300px] md:w-full mx-auto md:mx-0"
+          className="h-full object-cover w-[300px] md:w-full mx-auto md:mx-0"
         />
         <Button className='absolute left-14 md:left-3 bottom-5 bg-white text-black rounded-sm font-bold uppercase px-6 py-4 hover:text-white'>Kids</Button>
       </div>

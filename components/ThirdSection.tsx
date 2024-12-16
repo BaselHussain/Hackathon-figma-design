@@ -75,7 +75,7 @@ const bestProducts=[{
 
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full space-y-20 my-20`}>
+    <div className={`${Montserratfont.className} container w-full max-w-[1439px] space-y-20 my-20`}>
 <div className='w-[90%] lg:w-[80%] mx-auto space-y-3'>
 <p className='text-center text-sm text-[#737373] font-semibold'>Featured Products</p>
 <h1 className='text-center text-2xl font-bold'>Best Seller Products</h1>
@@ -84,12 +84,12 @@ const bestProducts=[{
 
 
 
-<div className='w-[90%] lg:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8'>
+<div className='w-[90%] xl:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6  lg:gap-x-6 xl:gap-y-20 gap-y-20 '>
 {
     bestProducts.map((product)=>(
-        <div key={product.id} className='h-[615px] space-y-2'>
+        <div key={product.id} className='h-[615px] space-y-2 w-[348px] md:w-full lg:w-[220px] xl:w-[239px]'>
 
-    <div className='h-[85%] md:h-[410px]'>
+    <div className='h-[90%] w-[100%]'>
 <Image
 src={product.src}
 alt='image'
