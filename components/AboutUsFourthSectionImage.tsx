@@ -10,7 +10,7 @@ const Montserratfont=Montserrat({
 export default function AboutUsFourthSectionImage() {
   return (
     <> 
-    <div className={`${Montserratfont.className} container w-full my-20 md:my-28 h-[316px] lg:h-[750px] md:py-7`}>
+    <div className={`${Montserratfont.className} container w-full max-w-[1439px] my-20 md:my-28 h-[316px] lg:h-[750px] md:py-7`}>
 <div className='w-[80%] mx-auto rounded-xl relative h-full'>
 <Image
 src={'/images/video-card.png'}

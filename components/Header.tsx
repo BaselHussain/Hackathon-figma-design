@@ -81,7 +81,7 @@ export default function Header() {
 
 <div className='flex items-center ml-5  lg:ml-0 space-x-1 lg:space-x-7 md:text-[#23A6F0]'>
     <div className='hidden md:flex items-center space-x-1 lg:space-x-2'><FaRegUser/><span className='font-bold'>Login/Register</span></div>
-<div className='flex items-center  space-x-2 lg:space-x-8'>
+<div className='flex items-center  space-x-2 lg:space-x-5 xl:space-x-8'>
     <BsSearch className='w-5 h-5'/>
     <span className='flex items-center space-x-1'><BsCart className='md:w-5 md:h-5'/><p className='hidden md:block'>1</p></span>
     <span className='hidden md:flex items-center space-x-1'><IoIosHeartEmpty className='md:w-5 md:h-5'/><p>1</p></span>

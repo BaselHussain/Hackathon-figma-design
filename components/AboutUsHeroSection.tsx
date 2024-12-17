@@ -11,7 +11,7 @@ const Montserratfont=Montserrat({
 export default function AboutUsHeroSection() {
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full bg-white text-black max-w-[1440px] max-h-[1300px] md:max-h-[709px]`}>
+    <div className={`${Montserratfont.className} container w-full bg-white text-black max-w-[1439px] max-h-[1300px] md:max-h-[709px]`}>
   <div className="w-[80%] mx-auto flex flex-col justify-center  md:flex-row md:justify-between  h-[75%] pt-20 space-y-24 md:space-y-0 md:space-x-32">
     
     <div className="text-div flex flex-col space-y-8 order-1 md:order-none lg:mt-10">

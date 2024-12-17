@@ -96,12 +96,12 @@ export default function PagesLastSection() {
     
   return (
    <>
-   <div className={`${Montserratfont.className} conatiner w-full my-20`}>
+   <div className={`${Montserratfont.className} conatiner w-full max-w-[1439px] my-20`}>
 
-<div className='w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-x-5  gap-y-10'>
+<div className='w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-x-5  gap-y-20'>
 {bestProducts.map((product)=>(
-    <div key={product.id} className=''>
-<div className='h-[85%] md:h-[375px] '>
+    <div key={product.id} className='h-[615px] lg:h-[488px] lg:w-[190px] xl:w-[238px]'>
+<div className='h-[82%] lg:h-[80%] '>
 <Image
 src={product.src}
 alt='prodcuct'
@@ -119,7 +119,7 @@ className='w-full h-full  object-cover'/>
 </div>
 
 
-<div className='w-[80%] mx-auto flex items-center justify-center my-16 cursor-pointer'>
+<div className='w-[80%] mx-auto flex items-center justify-center my-16 cursor-pointer mt-32 lg:mt-14'>
 
 <div className='h-16 flex items-center border  rounded-lg text-sm font-[500]'>
 <div className='px-4 border-r h-full content-center hover:bg-[#23a6f0] hover:text-white'>First</div>

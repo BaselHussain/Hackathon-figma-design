@@ -16,7 +16,7 @@ const Montserratfont=Montserrat({
 export default function PagesFirstSection() {
   return (
     <>
-<div className={`${Montserratfont.className} container w-full   space-y-20`}>
+<div className={`${Montserratfont.className} container w-full max-w-[1439px] mb-10   space-y-20`}>
 
 <div className='first-part w-[80%] mx-auto flex flex-col items-center md:flex-row justify-between mt-20'>
 

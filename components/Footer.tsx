@@ -14,9 +14,9 @@ const Montserratfont=Montserrat({
 export default function Footer() {
   return (
     <>
-<div className={`${Montserratfont.className} container w-full `}>
+<div className={`${Montserratfont.className} container w-full md:pb-8 max-w-[1440px]`}>
 
-<div className='first-one  py-[40px] '>
+<div className='first-one  py-[40px] bg-[#fafafa] w-full '>
     <div className=' flex items-center justify-between w-[90%] mx-auto'>
 <h1  className='text-2xl font-bold'>Bandage</h1>
 <div className='flex items-center space-x-3 text-[#23A6F0]'>
@@ -27,8 +27,8 @@ export default function Footer() {
 </div>
 </div>
 
-<div className='second-one'>
-<div className='w-[90%] mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 lg:gap-2'>
+<div className='second-one  mt-5 xl:mt-8'>
+<div className='w-[90%] mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-y-4  lg:gap-2'>
 
 <div className='first-col flex flex-col justify-center space-y-3'>
 <h1 className='text-xl font-bold'>Company Info</h1>

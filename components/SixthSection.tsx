@@ -35,7 +35,7 @@ export default function SixthSection() {
   return (
   <>
 
-<div className={`${Montserratfont.className} container w-full max-w-[1440px] h-[2302px] md:max-h-[1044px] pt-32 `}>
+<div className={`${Montserratfont.className} container w-full max-w-[1439px] h-[2302px] md:max-h-[1044px] pt-32 `}>
 <div className='second-conatiner w-[80%] mx-auto'>
 
 <div className='flex flex-col space-y-4'>
@@ -49,12 +49,14 @@ the two major realms of Classical physics: Newtonian mechanics </p>
 <div className=' mt-20 w-full grid grid-cols-1 md:grid-cols-3 gap-3'>
 {featuredPosts.map((post)=>(
     <div key={post.id} className='h-[606px]'>
+      <div className='h-[300px] md:h-[240px] lg:h-[300px]'>
 <Image
 src={post.src}
 alt='post'
 width={1000}
 height={1000}
-className='h-[300px] w-full'/>
+className='h-full w-full'/>
+</div>
 <div className='px-4 py-4 space-y-3'>
 <div className='flex items-center text-xs space-x-3'>
     <span className='text-[#23A6F0]'>Google</span>
