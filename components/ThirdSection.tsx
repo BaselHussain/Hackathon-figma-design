@@ -1,18 +1,32 @@
-import React from 'react'
+"use client";
+import React,{useContext, useState} from 'react'
 import Image from 'next/image';
 
 import {Montserrat} from "next/font/google";
+import { totalmem } from 'os';
+import { CartContext } from '@/context';
 const Montserratfont=Montserrat({
     weight:['400','500','600','700'],
     style:"normal",
     subsets:["latin"]
   })
 
+  interface Items{
+    id:number;
+    title:string;
+    description:string;
+    oldPrice:number;
+    newPrice:number;
+    src:string
+  }
+
 
 
 export default function ThirdSection() {
+    const cartObj=useContext(CartContext)
+  
 
-const bestProducts=[{
+const bestProducts:Items[]=[{
     id:1,
     title:'Graphic Design',
     description:"English Department",
@@ -101,6 +115,8 @@ className='w-full h-full object-cover'/>
 <h1 className='text-center mt-5 text-xl font-bold'>{product.title}</h1>
 <p className='text-center text-[#737373] font-semibold'>{product.description}</p>
 <p className='text-center text-sm font-semibold'><span className='text-[#737373] mr-2'>${product.oldPrice}</span>   <span className='text-green-800'>${product.newPrice}</span></p>
+<p className='cursor-pointer' onClick={()=>cartObj.handleAddtoCart({id:product.id,title:product.title,description:product.description,price:product.newPrice})}>Add To cart</p>
+
         </div>
     ))
 }
