@@ -26,7 +26,8 @@ the two major realms of Classical physics: Newtonian mechanics
 </p>
 </div>
 
-<div className='second-div  flex flex-col md:flex-row items-center justify-between space-x-4 space-y-4 md:space-y-0'>
+
+<div className='second-div  flex flex-col md:flex-row items-center justify-between space-x-4 space-y-4 md:space-y-0 text-[#737373] '>
 
 <FaHooli className='w-24 h-24'/>
 <FaLyft className='w-24 h-24'/>

@@ -1,4 +1,4 @@
-"use client";
+
 import React,{useContext, useState} from 'react'
 import Image from 'next/image';
 
@@ -6,6 +6,9 @@ import {Montserrat} from "next/font/google";
 import { totalmem } from 'os';
 import { CartContext } from '@/context';
 import Link from 'next/link';
+import { Button } from './ui/button';
+
+
 const Montserratfont=Montserrat({
     weight:['400','500','600','700'],
     style:"normal",
@@ -104,7 +107,7 @@ const bestProducts:Items[]=[{
     bestProducts.map((product)=>(
       
     
-        <div key={product.id} className='h-[615px] space-y-2 w-[348px] md:w-full lg:w-[220px] xl:w-[239px]'>
+        <div key={product.id} className='flex flex-col space-y-6 h-[615px]  w-[348px] md:w-full lg:w-[220px] xl:w-[239px]'>
  <Link href={`/SingleProduct/${product.id}`}>
     <div className='h-[90%] w-[100%]'>
 <Image
@@ -119,7 +122,7 @@ className='w-full h-full object-cover'/>
 <p className='text-center text-[#737373] font-semibold'>{product.description}</p>
 </Link>
 <p className='text-center text-sm font-semibold'><span className='text-[#737373] mr-2'>${product.oldPrice}</span>   <span className='text-green-800'>${product.newPrice}</span></p>
-<p className='cursor-pointer' onClick={()=>cartObj.handleAddtoCart({id:product.id,title:product.title,description:product.description,price:product.newPrice})}>Add To cart</p>
+<Button className='cursor-pointer' onClick={()=>cartObj.handleAddtoCart({id:product.id,title:product.title,description:product.description,price:product.newPrice})}>Add To cart</Button>
 
         </div>
        

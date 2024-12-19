@@ -1,9 +1,18 @@
-import React from 'react'
+"use client";
+import Footer from "@/components/Footer";
+import SingleProduct from "@/components/SingleProduct";
+import SingleProductSecondSection from "@/components/SingleProductSecondSection";
+import SingleProductThirdSection from "@/components/SingleProductThirdSection";
 
-export default function page() {
+export default function page({params}:{params:{id:string}}) {
+    
+
   return (
-    <div>
-      dsd
-    </div>
+    <>
+  <SingleProduct id={params.id}/>
+  <SingleProductSecondSection/>
+  <SingleProductThirdSection/>
+  <Footer/>
+  </>
   )
 }
