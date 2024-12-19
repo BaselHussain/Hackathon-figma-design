@@ -102,9 +102,10 @@ const bestProducts:Items[]=[{
 <div className='w-[90%] xl:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6  lg:gap-x-6 xl:gap-y-20 gap-y-20 '>
 {
     bestProducts.map((product)=>(
-        <Link href={`/SingleProduct/${product.id}`}>
+      
+    
         <div key={product.id} className='h-[615px] space-y-2 w-[348px] md:w-full lg:w-[220px] xl:w-[239px]'>
-
+ <Link href={`/SingleProduct/${product.id}`}>
     <div className='h-[90%] w-[100%]'>
 <Image
 src={product.src}
@@ -116,11 +117,13 @@ className='w-full h-full object-cover'/>
 
 <h1 className='text-center mt-5 text-xl font-bold'>{product.title}</h1>
 <p className='text-center text-[#737373] font-semibold'>{product.description}</p>
+</Link>
 <p className='text-center text-sm font-semibold'><span className='text-[#737373] mr-2'>${product.oldPrice}</span>   <span className='text-green-800'>${product.newPrice}</span></p>
 <p className='cursor-pointer' onClick={()=>cartObj.handleAddtoCart({id:product.id,title:product.title,description:product.description,price:product.newPrice})}>Add To cart</p>
 
         </div>
-        </Link>
+       
+       
     ))
 }
 
