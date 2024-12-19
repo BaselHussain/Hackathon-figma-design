@@ -1,6 +1,7 @@
 "use client";
 import Header from '@/components/Header';
-import React, { useContext } from 'react'
+import React from 'react'
+import { useContext } from 'react';
 import { FaChevronRight } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";

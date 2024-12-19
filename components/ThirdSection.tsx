@@ -1,9 +1,10 @@
-
-import React,{useContext, useState} from 'react'
+"use client";
+import React from 'react';
+import { useContext } from 'react';
 import Image from 'next/image';
 
 import {Montserrat} from "next/font/google";
-import { totalmem } from 'os';
+
 import { CartContext } from '@/context';
 import Link from 'next/link';
 import { Button } from './ui/button';
