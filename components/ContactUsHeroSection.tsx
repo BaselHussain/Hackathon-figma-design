@@ -44,9 +44,9 @@ export default function ContactUsHeroSection() {
         alt="shopping-girl"
         width={2000}
         height={2000}
-        className="h-full w-full ml-3 md:ml-0 z-30 relative scale-[1.03] md:scale-[1.08] lg:scale-[1.2]"
+        className="h-full w-full ml-3 md:ml-0 z-30 relative scale-[1.1] md:scale-[1.08] lg:scale-[1.2]"
       />
-      <div className='p-[8rem] md:p-[6rem]  lg:p-[9.2rem] xl:p-[11rem] z-10 rounded-full bg-[#ffe9ea] left-6 md:left-5 lg:left-2 xl:left-3 absolute   top-6 md:top-3 lg:-top-0 xl:-top-2 '>
+      <div className='p-[5.5rem] md:p-[6rem]  lg:p-[9.2rem] xl:p-[11rem] z-10 rounded-full bg-[#ffe9ea] left-3 md:left-5 lg:left-2 xl:left-3 absolute   top-2 md:top-3 lg:-top-0 xl:-top-2 '>
 
       </div>
     </div>
