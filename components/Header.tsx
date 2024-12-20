@@ -73,7 +73,7 @@ export default function Header() {
 </Link>
 <Link href={'/about-us'}><li>About</li></Link>
 <Link href={'/blog'}><li>Blog</li></Link>
-<Link href={'/contact'}><li>Contact</li></Link>
+<Link href={'/contact-us'}><li>Contact</li></Link>
 <Link href={'/pages'}><li>Pages</li></Link>
 </ul>
 </div>

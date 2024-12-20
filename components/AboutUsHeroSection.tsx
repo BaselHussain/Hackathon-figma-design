@@ -35,12 +35,12 @@ export default function AboutUsHeroSection() {
     <div className="image-div md:w-[60%] lg:w-[40%] h-full  order-2 md:order-none relative ">
       <Image
         src={"/images/shopping-girl.png"}
-        alt="heroman"
+        alt="shopping-girl"
         width={2000}
         height={2000}
         className="h-full w-full z-30 relative lg:scale-[1.2]"
       />
-      <div className='p-[8rem] lg:p-[13.5rem] z-10 rounded-full bg-[#ffe9ea] absolute right-6 lg:right-4 top-2 lg:top-4'>
+      <div className='p-[8rem] md:p-[8.5rem] lg:p-[10.6rem] xl:p-[13.5rem] z-10 rounded-full bg-[#ffe9ea] absolute right-9 md:right-5 lg:right-2 top-8 md:top-5 lg:top-1  xl:top-4'>
 
       </div>
     </div>

@@ -14,7 +14,7 @@ const Montserratfont=Montserrat({
 export default function Footer() {
   return (
     <>
-<div className={`${Montserratfont.className} container w-full md:pb-8 max-w-[1440px]`}>
+<div className={`${Montserratfont.className} container w-full  max-w-[1440px]`}>
 
 <div className='first-one  py-[40px] bg-[#fafafa] w-full '>
     <div className=' flex items-center justify-between w-[90%] mx-auto'>
@@ -82,6 +82,13 @@ export default function Footer() {
 </div>
 </div>
 
+
+</div>
+</div>
+
+<div className='first-one  py-[40px] bg-[#fafafa] w-full mt-7'>
+    <div className=' flex items-center justify-between w-[60%] md:w-[90%] mx-auto'>
+<p className=' text-[#737373] text-center md:text-start font-semibold'>Made With Love By Finland All Right Reserved </p>
 
 </div>
 </div>
