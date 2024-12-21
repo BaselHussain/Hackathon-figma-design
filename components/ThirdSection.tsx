@@ -141,12 +141,12 @@ className='w-full h-full object-fill '/>
   </SheetTrigger>
   <SheetContent>
     <SheetHeader>
-      <SheetTitle className='text-3xl font-bold text-center'>Cart Items</SheetTitle>
+      <SheetTitle className=' text-3xl font-bold text-center'>Cart Items</SheetTitle>
       <SheetDescription className='mt-20'>
         <ul className='list-decimal  w-full'>
             {cartObj.cart.map((item,index)=>(
-                <div key={item.id} className='flex items-center justify-around w-full'>
-                    <span className='text-lg text-black font-bold'>{index+1}</span>
+                <div key={item.id} className='flex items-center justify-around  w-full'>
+                    <span className='text-lg text-black font-bold mr-3'>{index+1}</span>
                 <li key={item.id} className='text-black text-lg font-bold flex items-center space-x-4 '>
                    
                     <div className='h-[50px] w-[40px]'>
