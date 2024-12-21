@@ -1,7 +1,16 @@
 "use client";
 import React from 'react';
 import { useContext } from 'react';
+import { FaTrash } from "react-icons/fa6";
 import Image from 'next/image';
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+  } from "@/components/ui/sheet"
 
 import {Montserrat} from "next/font/google";
 
@@ -29,7 +38,7 @@ const Montserratfont=Montserrat({
 
 export default function ThirdSection() {
     const cartObj=useContext(CartContext)
-  
+    if (!cartObj) return null;
 
 const bestProducts:Items[]=[{
     id:1,
@@ -123,8 +132,47 @@ className='w-full h-full object-fill '/>
 <p className='text-center text-[#737373] font-semibold '>{product.description}</p>
 </Link>
 <p className='text-center text-sm font-semibold'><span className='text-[#737373] mr-2'>${product.oldPrice}</span>   <span className='text-green-800'>${product.newPrice}</span></p>
-<Button className='cursor-pointer bg-red-700 hover:bg-red-500 w-[60%] mx-auto' onClick={()=>cartObj.handleAddtoCart({id:product.id,title:product.title,description:product.description,price:product.newPrice})}>Add To cart</Button>
 
+<Sheet>
+  <SheetTrigger asChild>
+    <Button className='cursor-pointer bg-red-700 hover:bg-red-500 w-[60%] mx-auto' onClick={()=>cartObj.handleAddtoCart({id:product.id,title:product.title,description:product.description,price:product.newPrice})}>Add To cart
+
+  </Button>
+  </SheetTrigger>
+  <SheetContent>
+    <SheetHeader>
+      <SheetTitle className='text-3xl font-bold text-center'>Cart Items</SheetTitle>
+      <SheetDescription className='mt-20'>
+        <ul className='list-decimal  w-full'>
+            {cartObj.cart.map((item,index)=>(
+                <div key={item.id} className='flex items-center justify-around w-full'>
+                    <span className='text-lg text-black font-bold'>{index+1}</span>
+                <li key={item.id} className='text-black text-lg font-bold flex items-center space-x-4 '>
+                   
+                    <div className='h-[50px] w-[40px]'>
+                        <Image
+                        src={product.src}
+                        alt='product'
+                        width={1000}
+                        height={1000}
+                        className='w-full h-full object-contain'/>
+
+                    </div>
+                    <span>{item.title}</span>
+                <span>${item.price}</span>
+                <FaTrash className='cursor-pointer' onClick={()=>cartObj.handleDeleteItem(item.id)}/>
+                </li>
+
+                </div>
+            ))}
+        </ul>
+        <div className='mt-20'>
+            <h1 className='text-center text-black text-2xl font-bold'>SubTotal : ${cartObj.total}</h1>
+        </div>
+      </SheetDescription>
+    </SheetHeader>
+  </SheetContent>
+</Sheet>
         </div>
        
        

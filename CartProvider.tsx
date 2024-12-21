@@ -6,7 +6,8 @@ interface Cart{
     id: number;
     title: string;
     description: string;
-    price: number;
+    price: number
+    
 }
 
 export default function CartProvider({
