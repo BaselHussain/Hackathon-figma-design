@@ -12,7 +12,7 @@ const Montserratfont=Montserrat({
 export default function AboutUsSeventhSection() {
   return (
    <>
-   <div className={`${Montserratfont.className} container w-full max-w-[1439px] my-20 flex flex-col md:flex-row h-[636px]`}>
+   <div className={`${Montserratfont.className} container w-full max-w-[2000px] my-20 flex flex-col md:flex-row h-[636px]`}>
 <div className='first-div w-full md:w-[60%] h-full bg-[#2a7cc7] text-white'>
 
 <div className='flex flex-col justify-center w-[300px]  lg:w-[438px] mx-auto h-full space-y-4'>

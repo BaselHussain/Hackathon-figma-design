@@ -93,7 +93,7 @@ const bestProducts:Items[]=[{
 export default function SingleProductThirdSection() {
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full max-w-[1439px]`}>
+    <div className={`${Montserratfont.className} container w-full max-w-[2000px]`}>
         <div className='first-div  w-[80%] md:w-[95%] lg:w-[90%] xl:w-[80%] mx-auto py-10'>
             <h1 className='text-2xl font-bold'>Best Seller Products</h1>
         </div>

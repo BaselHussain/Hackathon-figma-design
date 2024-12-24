@@ -35,7 +35,7 @@ export default function SixthSection() {
   return (
   <>
 
-<div className={`${Montserratfont.className} container w-full max-w-[1439px] h-[2302px] md:max-h-[1044px] pt-32 `}>
+<div className={`${Montserratfont.className} container w-full max-w-[2000px] h-[2302px] md:max-h-[1044px] pt-32 `}>
 <div className='second-conatiner w-[80%] mx-auto'>
 
 <div className='flex flex-col space-y-4'>

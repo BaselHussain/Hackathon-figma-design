@@ -9,7 +9,7 @@ const Montserratfont=Montserrat({
 export default function AboutUsSecondSection() {
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full max-w-[1439px] my-4 md:my-20  py-6 md:py-3 h-[500px] md:h-auto`}>
+    <div className={`${Montserratfont.className} container w-full max-w-[2000px] my-4 md:my-20  py-6 md:py-3 h-[500px] md:h-auto`}>
 <div className='w-[80%] mx-auto flex flex-col justify-evenly  h-full md:flex-row md:justify-between items-center'>
     <div className='flex flex-col px-8 md:px-0 space-y-3 md:w-[400px] lg:w-[394px]'>
 <h3 className='text-[#E74040] text-center md:text-start'>

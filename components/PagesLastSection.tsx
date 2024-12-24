@@ -96,7 +96,7 @@ export default function PagesLastSection() {
     
   return (
    <>
-   <div className={`${Montserratfont.className} conatiner w-full max-w-[1439px] my-20`}>
+   <div className={`${Montserratfont.className} conatiner w-full max-w-[2000px] my-20`}>
 
 <div className='w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-x-5  gap-y-20'>
 {bestProducts.map((product)=>(

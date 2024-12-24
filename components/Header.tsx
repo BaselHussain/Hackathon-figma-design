@@ -31,7 +31,7 @@ const Montserratfont=Montserrat({
 export default function Header() {
   return (
     <>
-    <header className='  max-w-[1439px] w-full box-border'>
+    <header className='  max-w-[2000px] w-full box-border'>
         <div className={`${Montserratfont.className} hidden  first-header bg-[#252b42] text-white w-full xl:flex items-center justify-between md:px-5 lg:px-7 py-4 `} style={{ fontWeight: 700 }}>
 <div className='flex items-center space-x-7'>
 <span className='flex items-center space-x-2'><IoCallOutline className='mr-2'/>(225) 555-0118</span>
@@ -57,7 +57,7 @@ export default function Header() {
         <div className={`${Montserratfont.className} w-full second-header bg-white text-black flex items-center justify-between h-[58px]  md:px-3 lg:px-4  my-4`}>
 
 <div className='flex items-center space-x-3 md:space-x-5 lg:space-x-24 xl:ml-6'>
-<h1 className='text-lg md:text-2xl ml-4 md:ml-0 font-bold  md:mx-0'>Bandage</h1>
+<h1 className='text-xl md:text-2xl ml-4 md:ml-0 font-bold  md:mx-0'>Bandage</h1>
 <ul className='hidden md:flex items-center space-x-2 lg:space-x-6 font-bold text-[#737373]'>
 <Link href={'/'}><li>Home</li></Link>
 <Link href={'/shop'}>
@@ -81,9 +81,9 @@ export default function Header() {
 
 <div className='flex items-center ml-5  lg:ml-0 space-x-1 lg:space-x-7 md:text-[#23A6F0]'>
     <div className='hidden md:flex items-center space-x-1 lg:space-x-2'><FaRegUser/><span className='font-bold'>Login/Register</span></div>
-<div className='flex items-center  space-x-2 lg:space-x-5 xl:space-x-8'>
-    <BsSearch className='w-5 h-5'/>
-    <span className='flex items-center space-x-1'><Link href={'/cart'}><BsCart className='md:w-5 md:h-5'/></Link><p className='hidden md:block'>1</p></span>
+<div className='flex items-center  space-x-3  lg:space-x-5 xl:space-x-7'>
+    <BsSearch className='w-4 h-4'/>
+    <span className='flex items-center space-x-1'><Link href={'/cart'}><BsCart className='w-4 h-4'/></Link><p className='hidden md:block'>1</p></span>
     <span className='hidden md:flex items-center space-x-1'><IoIosHeartEmpty className='md:w-5 md:h-5'/><p>1</p></span>
 <span>
 <SheetSide/>

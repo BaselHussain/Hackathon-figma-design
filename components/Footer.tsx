@@ -14,7 +14,7 @@ const Montserratfont=Montserrat({
 export default function Footer() {
   return (
     <>
-<div className={`${Montserratfont.className} container w-full  max-w-[1440px]`}>
+<div className={`${Montserratfont.className} container w-full  max-w-[2000px]`}>
 
 <div className='first-one  py-[40px] bg-[#fafafa] w-full '>
     <div className=' flex items-center justify-between w-[90%] mx-auto'>

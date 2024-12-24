@@ -11,7 +11,7 @@ const Montserratfont=Montserrat({
 export default function SingleProductSecondSection() {
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full max-w-[1439px] py-16`}>
+    <div className={`${Montserratfont.className} container w-full max-w-[2000px] py-16`}>
 
 
 <div className='first-div w-[95%] lg:w-[90%] xl:w-[80%]  mx-auto flex items-center justify-center space-x-7 border-b pb-7'>

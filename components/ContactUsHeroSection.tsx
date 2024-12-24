@@ -14,7 +14,7 @@ const Montserratfont=Montserrat({
 export default function ContactUsHeroSection() {
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full max-w-[1439px]`}>
+    <div className={`${Montserratfont.className} container w-full max-w-[2000px]`}>
 <div className='second-container w-[80%]  mx-auto flex flex-col gap-y-20 md:gap-y-0  items-center md:flex-row justify-between py-8'>
 
 <div className="text-div flex flex-col space-y-8 order-1 md:order-none lg:mt-10">

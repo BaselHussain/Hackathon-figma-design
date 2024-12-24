@@ -105,17 +105,17 @@ if(!product){
 }
   return (
     <>
-<>
+
   <Header/>
-  <div className={`${Montserratfont.className} container w-full max-w-[1439px] mt-10`}>
+  <div className={`${Montserratfont.className} container w-full max-w-[2000px] `}>
     <div className='first-div w-full py-6'>
     <div className=' w-[80%] mx-auto flex justify-center md:justify-between '>
 <h2 className='flex items-center gap-x-2 font-bold'>Home <FaChevronRight/> <span className='text-gray-500'>Shop</span></h2>
     </div>
     </div>
     
-    <div className='second-div w-[90%] xl:w-[80%] mx-auto flex flex-col md:flex-row md:items-start md:justify-between'>
-<div className='image-div w-[348px] h-[350px] md:w-[275px] md:h-[460px] lg:w-[350px]  xl:w-[400px] xl:h-[500px] 2xl:w-[450px] 2xl:h-[550px] '>
+    <div className='second-div w-[80%] xl:w-[80%] mx-auto flex flex-col md:flex-row md:items-start md:justify-between'>
+<div className='image-div w-full h-[480px] md:w-[200px] md:h-[360px] lg:w-[280px] lg:h-[400px] xl:w-[300px]  xl:h-[470px] 2xl:w-[450px] 2xl:h-[550px] '>
 <Image
 src={product.src}
 alt={product.title}
@@ -124,7 +124,7 @@ height={1000}
 className='w-full h-full '/>
 </div>
 
-<div className='product-description-div h-[471px] lg:mr-16 xl:mr-24 mt-4 flex flex-col items-start space-y-7'>
+<div className='product-description-div md:h-[420px] h-[500px] md:mr-3 lg:mr-5 xl:mr-[12rem] mt-4 flex flex-col items-start gap-y-4 md:gap-y-2 lg:gap-y-4 xl:gap-y-6'>
 <h1 className='text-2xl font-bold'>{product.title}</h1>
 <div className='flex items-center space-x-3'>
     {Array(4).fill(1).map((item)=>(
@@ -138,7 +138,7 @@ className='w-full h-full '/>
 <p className='font-semibold'>Availability : <span className='text-[#23a6f0]'>In stock</span></p>
 </div>
 
-<p className='w-[400px] lg:w-[464px]'>{product.description}</p>
+<p className='w-full md:w-[400px] lg:w-[484px]'>{product.description}</p>
 
 <div className=' border-[0.3px] border-gray-400 w-full'></div>
 
@@ -149,7 +149,7 @@ className='w-full h-full '/>
     <div className='rounded-full w-6 h-6 bg-[#252b42]'></div>
 </div>
 
-<div className='flex items-center space-x-6 '>
+<div className='flex items-center space-x-6 mt-8 md:mt-5 lg:mt-10'>
     <Button className='text-white bg-[#23a6f0] hover:bg-[#20709e] '>Select Options</Button>
 <CiHeart className='w-5 h-5'/>
 <BsCart className='w-5 h-5 cursor-pointer' onClick={()=>cartObj.handleAddtoCart({id:product.id,title:product.title,description:product.description,price:product.newPrice})}/>
@@ -162,6 +162,6 @@ className='w-full h-full '/>
 </div> 
   </div>
   </>
-    </>
+    
   )
 }

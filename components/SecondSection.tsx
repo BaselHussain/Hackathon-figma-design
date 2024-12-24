@@ -12,7 +12,7 @@ export default function SecondSection() {
   return (
     <>
     <div
-  className={`${Montserratfont.className} container w-full max-w-[1439px] py-8 md:py-16 md:h-auto`}
+  className={`${Montserratfont.className} container w-full max-w-[2000px] py-8 md:py-16 md:h-auto`}
 >
   <div className="second-container w-[90%] lg:w-[80%] mx-auto">
     {/* Header Section */}

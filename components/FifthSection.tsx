@@ -13,7 +13,7 @@ const Montserratfont=Montserrat({
 export default function FifthSection() {
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full max-[1439px] bg-white mt-16 md:mt-0`}>
+    <div className={`${Montserratfont.className} container w-full max-[2000px] bg-white mt-16 md:mt-0`}>
 <div className='second-container w-[80%] mx-auto flex flex-col md:flex-row md:justify-between  md:space-x-24 gap-y-10 md:gap-y-0'>
 
 <div className='image-div order-2 md:order-none'>

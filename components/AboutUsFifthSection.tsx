@@ -31,7 +31,7 @@ const teamMemebers=[{
 export default function AboutUsFifthSection() {
   return (
    <>
-   <div className={`${Montserratfont.className} container w-full max-w-[1439px] py-14 mb-20`}>
+   <div className={`${Montserratfont.className} container w-full max-w-[2000px] py-14 mb-20`}>
 <div className='w-[80%] mx-auto space-y-20'>
 <div className='first-div md:w-[607px] mx-auto flex flex-col items-center space-y-3'>
 <h1 className='text-3xl font-bold '>Meet Our Team</h1>

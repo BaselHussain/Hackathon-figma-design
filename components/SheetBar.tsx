@@ -31,7 +31,7 @@ export function SheetSide() {
       {SHEET_SIDES.map((side) => (
         <Sheet key={side}>
           <SheetTrigger asChild>
-           <GiHamburgerMenu className="mr-2"/>
+           <GiHamburgerMenu className=" w-4 h-4"/>
           </SheetTrigger>
           <SheetContent side={side}>
             <div className="flex flex-col items-center justify-center mt-9 space-y-4">

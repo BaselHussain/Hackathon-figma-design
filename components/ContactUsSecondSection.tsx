@@ -14,7 +14,7 @@ const Montserratfont=Montserrat({
 export default function ContactUsSecondSection() {
   return (
     <>
-    <div className={`${Montserratfont.className} container w-full max-w-[1439px] `}>
+    <div className={`${Montserratfont.className} container w-full max-w-[2000px] `}>
 <div className='second-container w-[80%] mx-auto my-10 md:my-20'>
 
 <div className='w-[310px] md:w-[550px] 2xl:w-[625px] mx-auto first-div text-center space-y-5'>
