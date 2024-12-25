@@ -1,7 +1,7 @@
 import React from 'react';
 import {Montserrat} from "next/font/google";
 import { FaInstagram } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
+import { IoLogoFacebook } from "react-icons/io";
 import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import Image from 'next/image';
@@ -30,7 +30,7 @@ export default function ContactUsHeroSection() {
         <p className='text-2xl font-bold'>Fax : +451 215 215</p>
         <div className='flex space-x-7  mt-4'>
         
-            <FaFacebook className='w-7 h-7'/>
+            <IoLogoFacebook className='w-7 h-7'/>
             <FaInstagram className='w-7 h-7'/>
             <FaTwitter className='w-7 h-7'/>
             <FaLinkedin className='w-7 h-7'/>

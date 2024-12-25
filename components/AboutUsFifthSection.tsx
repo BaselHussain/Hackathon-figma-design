@@ -41,7 +41,7 @@ the two major realms of Classical physics: Newtonian mechanics
 </p>
 
 </div>
-<div className='second-div grid grid-cols-1 md:grid-cols-3 gap-14'>
+<div className='second-div grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-7'>
 {teamMemebers.map((member)=>(
     <div key={member.id} className='h-[316px]'>
 <div className='h-[231px]'>

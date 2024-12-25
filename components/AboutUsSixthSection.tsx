@@ -19,7 +19,7 @@ export default function AboutUsSixthSection() {
 <div className={`${Montserratfont.className} container w-full max-w-[2000px] py-16`}>
 <div className='w-[80%] mx-auto space-y-20'>
 <div className='first-div md:w-[607px] mx-auto flex flex-col items-center space-y-3'>
-<h1 className='text-3xl font-bold '>Big Companies Are Here</h1>
+<h1 className='text-3xl font-bold text-center'>Big Companies Are Here</h1>
 <p className='text-sm font-semibold text-[#737373] text-center'>
 Problems trying to resolve the conflict between 
 the two major realms of Classical physics: Newtonian mechanics 
