@@ -31,7 +31,7 @@ const Montserratfont=Montserrat({
 export default function Header() {
   return (
     <>
-    <header className='  max-w-[2000px] w-full box-border sticky top-0 z-10'>
+    <header className='  max-w-[2000px] w-full box-border sticky top-0 z-40'>
         <div className={`${Montserratfont.className} hidden  first-header bg-[#252b42] text-white w-full xl:flex items-center justify-between md:px-5 lg:px-7 py-4 `} style={{ fontWeight: 700 }}>
 <div className='flex items-center space-x-7'>
 <span className='flex items-center space-x-2'><IoCallOutline className='mr-2'/>(225) 555-0118</span>
