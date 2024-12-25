@@ -54,7 +54,7 @@ export default function Header() {
         </div>
 
 
-        <div className={`${Montserratfont.className} w-full second-header bg-white text-black flex items-center justify-between h-[78px]  md:px-3 lg:px-4  mb-4 `}>
+        <div className={`${Montserratfont.className} w-full second-header bg-white text-black flex items-center justify-between h-[78px]  md:px-3 lg:px-4   `}>
 
 <div className='flex items-center space-x-3 md:space-x-5 lg:space-x-24 xl:ml-6'>
 <h1 className='text-xl md:text-2xl ml-4 md:ml-0 font-bold  md:mx-0'>Bandage</h1>
