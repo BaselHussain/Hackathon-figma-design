@@ -11,7 +11,7 @@ export default function PricingFourthSection() {
     <div className={`${Montserratfont.className} w-full max-w-[2000px] py-20 space-y-32`}>
 <div className='first-div w-[80%] mx-auto flex flex-col items-center gap-2 '>
 <h1 className='text-3xl font-bold'>Pricing FAQs</h1>
-<p className='text-[#737373] font-semibold md:w-[552px] text-center px-16'>Problems trying to resolve the conflict between 
+<p className='text-[#737373] font-semibold md:w-[552px] text-center md:px-16'>Problems trying to resolve the conflict between 
 the two major realms of Classical physics</p>
 </div>
 
