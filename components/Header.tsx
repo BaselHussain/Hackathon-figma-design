@@ -31,7 +31,7 @@ const Montserratfont=Montserrat({
 export default function Header() {
   return (
     <>
-    <header className='  max-w-[2000px] w-full box-border'>
+    <header className='  max-w-[2000px] w-full box-border sticky top-0 z-10'>
         <div className={`${Montserratfont.className} hidden  first-header bg-[#252b42] text-white w-full xl:flex items-center justify-between md:px-5 lg:px-7 py-4 `} style={{ fontWeight: 700 }}>
 <div className='flex items-center space-x-7'>
 <span className='flex items-center space-x-2'><IoCallOutline className='mr-2'/>(225) 555-0118</span>
@@ -54,7 +54,7 @@ export default function Header() {
         </div>
 
 
-        <div className={`${Montserratfont.className} w-full second-header bg-white text-black flex items-center justify-between h-[58px]  md:px-3 lg:px-4  my-4`}>
+        <div className={`${Montserratfont.className} w-full second-header bg-white text-black flex items-center justify-between h-[78px]  md:px-3 lg:px-4  mb-4 `}>
 
 <div className='flex items-center space-x-3 md:space-x-5 lg:space-x-24 xl:ml-6'>
 <h1 className='text-xl md:text-2xl ml-4 md:ml-0 font-bold  md:mx-0'>Bandage</h1>
