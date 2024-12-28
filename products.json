@@ -1,0 +1,58 @@
+[{
+    "id":1,
+    "title":"Graphic Design",
+    "description":"English Department",
+    "oldPrice":16.48,
+    "newPrice":6.48,
+    "src":"/images/african-girl.png"
+},{
+    "id":2,
+    "title":"Graphic Design",
+    "description":"English Department",
+    "oldPrice":16.48,
+    "newPrice":6.48,
+    "src":"/images/boy-with-wall.png"
+},{
+    "id":3,
+    "title":"Graphic Design",
+    "description":"English Department",
+    "oldPrice":16.48,
+    "newPrice":6.48,
+    "src":"/images/pink-girl.png"
+},{
+    "id":4,
+    "title":"Graphic Design",
+    "description":"English Department",
+    "oldPrice":16.48,
+    "newPrice":6.48,
+    "src":"/images/brown-girl.png"
+},{
+    "id":5,
+    "title":"Graphic Design",
+    "description":"English Department",
+    "oldPrice":16.48,
+    "newPrice":6.48,
+    "src":"/images/long-jacket-boy.png"
+},{
+    "id":6,
+    "title":"Graphic Design",
+    "description":"English Department",
+    "oldPrice":16.48,
+    "newPrice":6.48,
+    "src":"/images/yellow-girl.png"
+},{
+    "id":7,
+    "title":"Graphic Design",
+    "description":"English Department",
+    "oldPrice":16.48,
+    "newPrice":6.48,
+    "src":"/images/boy-with-hoodie.png"
+},{
+    "id":8,
+    "title":"Graphic Design",
+    "description":"English Department",
+    "oldPrice":16.48,
+    "newPrice":6.48,
+    "src":"/images/last-boy.png"
+}
+]
