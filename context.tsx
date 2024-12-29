@@ -6,6 +6,7 @@ export interface Cart{
     title: string;
     description: string;
     price: number;
+    src:string
 }
 interface CartContextType {
     cart: Cart[];

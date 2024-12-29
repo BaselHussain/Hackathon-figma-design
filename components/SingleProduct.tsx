@@ -1,6 +1,6 @@
 "use client";
 import Header from '@/components/Header';
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import { useContext } from 'react';
 import { FaChevronRight } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
@@ -16,93 +16,53 @@ const Montserratfont=Montserrat({
     style:"normal",
     subsets:["latin"]
   })
+  interface singleProduct{
+    id:number;
+    title:string;
+    description:string;
+    oldPrice:number;
+    newPrice:number;
+    src:string,
+    rating:number
+  }
+export default function SinglesingleProduct({id}:{id:string}) {
+    
+      const [singleProduct,setSinglesingleProduct]=useState<singleProduct | null>(null)
+      const [error, setError] = useState<string | null>(null);
+     useEffect(() => {
+        const fetchSinglesingleProduct = async () => {
+          try {
+            const response = await fetch(`/api/singleProducts/${id}?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`);
+      
+            if (!response.ok) {
+              throw new Error('Failed to fetch singleProducts');
+            }
+      
+            const data = await response.json();
+            setSinglesingleProduct(data)
+            
+            
+          } catch (error) {
+            setError('Error fetching singleProduct');
+            console.error('Error fetching singleProducts:', error);
+          }
+        };
+      
+        fetchSinglesingleProduct();
+      }, [id]);
 
-export default function SingleProduct({id}:{id:string}) {
+      if (error) {
+        return <div>{error}</div>;
+      }
+
     const cartObj=useContext(CartContext)
 
-    interface Items{
-        id:number;
-        title:string;
-        description:string;
-        oldPrice:number;
-        newPrice:number;
-        src:string,
-        rating:number
+  
+    if (!singleProduct) {
+        return <p>Loading...</p>; // Or display a fallback UI
       }
-      
 
-    const bestProducts:Items[]=[{
-        id:1,
-        title:'Graphic Design',
-        description:"Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.",
-        oldPrice:16.48,
-        newPrice:6.48,
-        src:'/images/african-girl.png',
-        rating:20
-    },{
-        id:2,
-        title:'Graphic Design',
-        description:"Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.",
-        oldPrice:16.48,
-        newPrice:6.48,
-        src:'/images/boy-with-wall.png',
-        rating:20
-    },{
-        id:3,
-        title:'Graphic Design',
-        description:"Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.",
-        oldPrice:16.48,
-        newPrice:6.48,
-        src:'/images/pink-girl.png',
-        rating:20
-    },{
-        id:4,
-        title:'Graphic Design',
-        description:"Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.",
-        oldPrice:16.48,
-        newPrice:6.48,
-        src:'/images/brown-girl.png',
-        rating:20
-    },{
-        id:5,
-        title:'Graphic Design',
-        description:"Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.",
-        oldPrice:16.48,
-        newPrice:6.48,
-        src:'/images/long-jacket-boy.png',
-        rating:20
-    },{
-        id:6,
-        title:'Graphic Design',
-        description:"Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.",
-        oldPrice:16.48,
-        newPrice:6.48,
-        src:'/images/yellow-girl.png',
-        rating:20
-    },{
-        id:7,
-        title:'Graphic Design',
-        description:"Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.",
-        oldPrice:16.48,
-        newPrice:6.48,
-        src:'/images/boy-with-hoodie.png',
-        rating:20
-    },{
-        id:8,
-        title:'Graphic Design',
-        description:"Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.",
-        oldPrice:16.48,
-        newPrice:6.48,
-        src:'/images/last-boy.png',
-        rating:20
-    }
-    ]
-const product=bestProducts.find((product)=>product.id===Number(id))
-if(!product){
-    return(
-        <h1>Product not found</h1>
-    )
-}
+ 
   return (
     <>
 
@@ -117,28 +77,28 @@ if(!product){
     <div className='second-div w-[80%] xl:w-[80%] mx-auto flex flex-col md:flex-row md:items-start md:justify-between'>
 <div className='image-div w-full h-[480px] md:w-[200px] md:h-[360px] lg:w-[280px] lg:h-[400px] xl:w-[300px]  xl:h-[470px] 2xl:w-[450px] 2xl:h-[550px] '>
 <Image
-src={product.src}
-alt={product.title}
+src={singleProduct.src}
+alt={singleProduct.title}
 width={1000}
 height={1000}
 className='w-full h-full '/>
 </div>
 
-<div className='product-description-div md:h-[420px] h-[500px] md:mr-3 lg:mr-5 xl:mr-[12rem] mt-4 flex flex-col items-start gap-y-4 md:gap-y-2 lg:gap-y-4 xl:gap-y-6'>
-<h1 className='text-2xl font-bold'>{product.title}</h1>
+<div className='singleProduct-description-div md:h-[420px] h-[500px] md:mr-3 lg:mr-5 xl:mr-[12rem] mt-4 flex flex-col items-start gap-y-4 md:gap-y-2 lg:gap-y-4 xl:gap-y-6'>
+<h1 className='text-2xl font-bold'>{singleProduct.title}</h1>
 <div className='flex items-center space-x-3'>
     {Array(4).fill(1).map((item)=>(
         <FaStar className='text-yellow-500'/>
     ))
 }
-<span className='text-gray-500 font-semibold'>{product.rating} Reviews</span>
+<span className='text-gray-500 font-semibold'>{singleProduct.rating} Reviews</span>
 </div>
 <div>
-<h1 className='text-2xl font-bold'>${product.newPrice}</h1>
+<h1 className='text-2xl font-bold'>${singleProduct.newPrice}</h1>
 <p className='font-semibold'>Availability : <span className='text-[#23a6f0]'>In stock</span></p>
 </div>
 
-<p className='w-full md:w-[400px] lg:w-[484px]'>{product.description}</p>
+<p className='w-full md:w-[400px] lg:w-[484px]'>{singleProduct.description}</p>
 
 <div className=' border-[0.3px] border-gray-400 w-full'></div>
 
@@ -152,7 +112,7 @@ className='w-full h-full '/>
 <div className='flex items-center space-x-6 mt-8 md:mt-5 lg:mt-10'>
     <Button className='text-white bg-[#23a6f0] hover:bg-[#20709e] '>Select Options</Button>
 <CiHeart className='w-5 h-5'/>
-<BsCart className='w-5 h-5 cursor-pointer' onClick={()=>cartObj.handleAddtoCart({id:product.id,title:product.title,description:product.description,price:product.newPrice})}/>
+<BsCart className='w-5 h-5 cursor-pointer' onClick={()=>cartObj.handleAddtoCart({id:singleProduct.id,title:singleProduct.title,description:singleProduct.description,price:singleProduct.newPrice,src:singleProduct.src})}/>
 <IoEye className='w-5 h-5'/>
 </div>
 
