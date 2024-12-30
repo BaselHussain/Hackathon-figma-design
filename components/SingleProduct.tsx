@@ -26,13 +26,14 @@ const Montserratfont=Montserrat({
     rating:number
   }
 export default function SinglesingleProduct({id}:{id:string}) {
+ 
     
       const [singleProduct,setSinglesingleProduct]=useState<singleProduct | null>(null)
       const [error, setError] = useState<string | null>(null);
      useEffect(() => {
         const fetchSinglesingleProduct = async () => {
           try {
-            const response = await fetch(`/api/singleProducts/${id}?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`);
+            const response = await fetch(`/api/products/${id}?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`);
       
             if (!response.ok) {
               throw new Error('Failed to fetch singleProducts');
@@ -59,7 +60,7 @@ export default function SinglesingleProduct({id}:{id:string}) {
 
   
     if (!singleProduct) {
-        return <p>Loading...</p>; // Or display a fallback UI
+        return <div className='rounded-full w-7 h-7 border border-gray-500 border-r-transparent animate-spin'></div>; // Or display a fallback UI
       }
 
  
