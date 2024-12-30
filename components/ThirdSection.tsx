@@ -1,22 +1,6 @@
 "use client";
 import React from 'react';
-import { useContext } from 'react';
-import { FaTrash } from "react-icons/fa6";
-import Image from 'next/image';
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-  } from "@/components/ui/sheet"
-
 import {Montserrat} from "next/font/google";
-
-import { CartContext } from '@/context';
-import Link from 'next/link';
-import { Button } from './ui/button';
 import ProductList from './ProductList';
 
 

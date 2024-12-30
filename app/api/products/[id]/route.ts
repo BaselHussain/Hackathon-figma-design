@@ -13,7 +13,6 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 
   const { id } = params; // Extract the productId from the URL
-  console.log('Received productId:', id)
   const product = products.find((p) => p.id == Number(id)); // Find the product by ID
 
   if (!product) {

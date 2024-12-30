@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React,{useContext} from 'react';
 import {Montserrat} from "next/font/google"
 import { IoCallOutline } from "react-icons/io5";
 import { BsEnvelope } from "react-icons/bs";
@@ -13,6 +14,7 @@ import { BsSearch } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
 import Link from 'next/link';
 import {  SheetSide } from './SheetBar';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { CartContext } from '@/context';
 
 
 const Montserratfont=Montserrat({
@@ -29,6 +32,7 @@ const Montserratfont=Montserrat({
     subsets:["latin"]
   })
 export default function Header() {
+  const cartItems=useContext(CartContext)
   return (
     <>
     <header className='  max-w-[2000px] w-full box-border sticky top-0 z-40'>
@@ -83,7 +87,7 @@ export default function Header() {
     <div className='hidden md:flex items-center space-x-1 lg:space-x-2'><FaRegUser/><span className='font-bold'>Login/Register</span></div>
 <div className='flex items-center  space-x-3  lg:space-x-5 xl:space-x-7'>
     <BsSearch className='w-4 h-4'/>
-    <span className='flex items-center space-x-1'><Link href={'/cart'}><BsCart className='w-4 h-4'/></Link><p className='hidden md:block'>1</p></span>
+    <span className='flex items-center space-x-1'><Link href={'/cart'}><BsCart className='w-4 h-4'/></Link><p className='hidden md:block'>{cartItems.cart.length}</p></span>
     <span className='hidden md:flex items-center space-x-1'><IoIosHeartEmpty className='md:w-5 md:h-5'/><p>1</p></span>
 <span>
 <SheetSide/>
