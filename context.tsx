@@ -6,12 +6,14 @@ export interface Cart{
     title: string;
     description: string;
     price: number;
+    quantity?:number;
     src:string
 }
 interface CartContextType {
     cart: Cart[];
    handleAddtoCart: (item: Cart) => void;
    handleDeleteItem: (id: number) => void;
+   handleUpdateQuantity:(id:number,change:number)=>void
    total:number
 }
 

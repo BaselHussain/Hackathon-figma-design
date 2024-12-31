@@ -13,20 +13,11 @@ const Montserratfont = Montserrat({
   subsets: ["latin"],
 });
 
-export default function CartItems() {
-    const [quantity,setQuantity]=useState<number>(1)
+export default function cartObj() {
+  const cartObj = useContext(CartContext);
 
-    const handleIncreaseQuantity=()=>{
-        setQuantity(quantity+1)
-    }
-
-    const handleDecreaseQuantity=()=>{
-        if(quantity>1){
-            setQuantity(quantity-1)
-        }
-    }
-
-  const cartItems = useContext(CartContext);
+    
+  
 
   return (
     <div
@@ -42,8 +33,8 @@ export default function CartItems() {
         </div>
 
         {/* Cart Items */}
-        {cartItems.cart.length > 0 ? (
-          cartItems.cart.map((item) => (
+        {cartObj.cart.length > 0 ? (
+          cartObj.cart.map((item) => (
             <div
               key={item.id}
               className="w-full grid grid-cols-[2fr_1fr_1fr_1fr] gap-0 items-center border-b py-4"
@@ -67,14 +58,14 @@ export default function CartItems() {
 
               {/* Quantity */}
               <div className="text-center text-xs md:text-base flex items-center justify-center gap-2">
-<FaMinus onClick={handleDecreaseQuantity} className="cursor-pointer"/>
-<p>{quantity}</p>
-<FaPlus onClick={handleIncreaseQuantity} className="cursor-pointer"/>
+<FaMinus onClick={()=>cartObj.handleUpdateQuantity(item.id,-1)} className="cursor-pointer"/>
+<p>{item.quantity}</p>
+<FaPlus onClick={()=>cartObj.handleUpdateQuantity(item.id,1)} className="cursor-pointer"/>
 
                 </div>
 
               {/* Total */}
-              <p className="text-center text-xs md:text-base relative">{item.price * quantity} <FaTrash onClick={()=>cartItems.handleDeleteItem(item.id)} className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"/></p>
+              <p className="text-center text-xs md:text-base relative">{item.price * (item.quantity || 1)} <FaTrash onClick={()=>cartObj.handleDeleteItem(item.id)} className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"/></p>
             </div>
           ))
         ) : (
