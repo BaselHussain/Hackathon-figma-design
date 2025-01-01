@@ -16,7 +16,7 @@ export default function Checkout() {
         <div className='w-[50%] md:w-[40%] absolute right-3 top-0 flex flex-col gap-3'>
             <div className='flex justify-between items-center py-3 border-b'>
                 <h2 className='font-semibold'>Grand Total:</h2>
-                <span>${cartObj.total}</span>
+                <span>${(cartObj.total).toFixed(2)}</span>
             </div>
            
 
