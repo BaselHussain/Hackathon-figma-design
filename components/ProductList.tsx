@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from './ui/button';
 import { FaTrash } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa";
 import Image from 'next/image';
 import Link from 'next/link';
 import { CartContext } from '@/context';
@@ -80,30 +82,31 @@ export default function ProductList() {
               <SheetTitle className=' text-3xl font-bold text-center'>Cart Items</SheetTitle>
               <SheetDescription className='mt-20'>
                 <ul className='list-decimal  w-full'>
-                    {cartObj.cart.map((item,index)=>(
-                        <div key={item.id} className='flex items-center justify-around  w-full'>
-                            <span className='text-lg text-black font-bold mr-3'>{index+1}</span>
-                        <li key={item.id} className='text-black text-lg font-bold flex items-center space-x-4 '>
+                    {cartObj.cart.map((item)=>(
+                            
+                        <li key={item.id} className='text-black text-sm font-semibold flex items-center justify-between space-x-2 w-full py-4'>
                            
-                            <div className='h-[50px] w-[40px]'>
+                            <div className='h-[70px] w-[50px]'>
                                 <Image
                                 src={item.src}
                                 alt='product'
                                 width={1000}
                                 height={1000}
-                                className='w-full h-full object-contain'/>
+                                className='w-full h-full object-fill'/>
         
                             </div>
-                            <span>{item.title}</span>
+                            <span>{item.title} 
+                          <p className='flex items-center gap-2 justify-center mt-2'><FaMinus onClick={()=>cartObj.handleUpdateQuantity(item.id,-1)}/><span>{item.quantity}</span><FaPlus onClick={()=>cartObj.handleUpdateQuantity(item.id,1)}/></p>
+                            </span>
                         <span>${item.price}</span>
                         <FaTrash className='cursor-pointer' onClick={()=>cartObj.handleDeleteItem(item.id)}/>
                         </li>
         
-                        </div>
+                        
                     ))}
                 </ul>
                 <div className='mt-20'>
-                    <h1 className='text-center text-black text-2xl font-bold'>SubTotal : ${cartObj.total}</h1>
+                    <h1 className='text-center text-black text-2xl font-bold'>SubTotal : ${cartObj.total.toFixed(2)}</h1>
                 </div>
               </SheetDescription>
             </SheetHeader>

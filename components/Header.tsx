@@ -35,7 +35,7 @@ export default function Header() {
   const cartItems=useContext(CartContext)
   return (
     <>
-    <header className='  max-w-[2000px] w-full box-border sticky top-0 z-40'>
+    <header className='  max-w-[2000px] w-full box-border sticky top-0 z-40 '>
         <div className={`${Montserratfont.className} hidden  first-header bg-[#252b42] text-white w-full xl:flex items-center justify-between md:px-5 lg:px-7 py-4 `} style={{ fontWeight: 700 }}>
 <div className='flex items-center space-x-7'>
 <span className='flex items-center space-x-2'><IoCallOutline className='mr-2'/>(225) 555-0118</span>
@@ -87,7 +87,7 @@ export default function Header() {
     <div className='hidden md:flex items-center space-x-1 lg:space-x-2'><FaRegUser/><span className='font-bold'>Login/Register</span></div>
 <div className='flex items-center  space-x-3  lg:space-x-5 xl:space-x-7'>
     <BsSearch className='w-4 h-4'/>
-    <span className='flex items-center space-x-1'><Link href={'/cart'}><BsCart className='w-4 h-4'/></Link><p className='hidden md:block'>{cartItems.cart.length}</p></span>
+    <span className='flex items-center space-x-1 relative'><Link href={'/cart'}><BsCart className='w-4 h-4 ' /></Link><div className=' rounded-full md:rounded-none bg-black md:bg-white text-white md:text-[#23a6f0] absolute md:static bottom-1 md:bottom-0 left-1 md:left-0 text-xs md:text-base w-4 md:w-auto h-4 md:h-auto text-center content-center  -translate-y-1/2 md:-translate-y-0'>{cartItems.cart.length}</div></span>
     <span className='hidden md:flex items-center space-x-1'><IoIosHeartEmpty className='md:w-5 md:h-5'/><p>1</p></span>
 <span>
 <SheetSide/>

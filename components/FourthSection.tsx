@@ -23,7 +23,7 @@ export default function FourthSection() {
         know
       </p>
       <div className="flex flex-col space-y-3  md:flex-row space-x-7 items-center">
-        <span className="text-2xl font-bold">$16.48</span>
+        <span className="text-2xl font-bold mt-2">$16.48</span>
         <Button
           className="bg-[#2dc071] text-white font-bold px-8 py-6 rounded-sm uppercase hover:bg-[#27a160]"
         >

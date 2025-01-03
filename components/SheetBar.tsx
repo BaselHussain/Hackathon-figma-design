@@ -45,7 +45,7 @@ export function SheetSide() {
                     <div className="flex flex-col space-y-3 justify-center items-center">
                     <p className="flex items-center space-x-1 text-[#23a6f0]"><FaRegUser/><span className='font-bold'>Login / Register</span></p>
                     <p className="text-[#23a6f0] text-center"><BsSearch/></p>
-                    <p className="text-[#23a6f0] text-center"><BsCart/></p>
+                   <Link href={'/cart'}> <p className="text-[#23a6f0] text-center "><BsCart/></p></Link>
                     <p className="text-[#23a6f0] text-center"><IoIosHeartEmpty/></p>
                     </div>
                 

@@ -11,6 +11,7 @@ import {Montserrat} from "next/font/google";
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { CartContext } from '@/context';
+import { toast } from "sonner"
 const Montserratfont=Montserrat({
     weight:['400','500','600','700'],
     style:"normal",
@@ -62,7 +63,22 @@ export default function SinglesingleProduct({id}:{id:string}) {
     if (!singleProduct) {
         return <div className='rounded-full w-7 h-7 border border-gray-500 border-r-transparent animate-spin'></div>; // Or display a fallback UI
       }
-
+      const handleCartClick = () => {
+        cartObj.handleAddtoCart({
+          id: singleProduct.id,
+          title: singleProduct.title,
+          description: singleProduct.description,
+          price: singleProduct.newPrice,
+          src: singleProduct.src,
+        }) ;
+      
+        toast("Product has been added to your cart", {
+          action: {
+            label: "Undo",
+            onClick: () => console.log("Undo"),
+          },
+        });
+      }
  
   return (
     <>
@@ -113,7 +129,7 @@ className='w-full h-full '/>
 <div className='flex items-center space-x-6 mt-8 md:mt-5 lg:mt-10'>
     <Button className='text-white bg-[#23a6f0] hover:bg-[#20709e] '>Select Options</Button>
 <CiHeart className='w-5 h-5'/>
-<BsCart className='w-5 h-5 cursor-pointer' onClick={()=>cartObj.handleAddtoCart({id:singleProduct.id,title:singleProduct.title,description:singleProduct.description,price:singleProduct.newPrice,src:singleProduct.src})}/>
+<BsCart className='w-5 h-5 cursor-pointer'  onClick={handleCartClick}/>
 <IoEye className='w-5 h-5'/>
 </div>
 
