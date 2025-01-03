@@ -20,7 +20,7 @@ export default function CartProvider({
 
     const [cart,setCart]=useState<Cart[]>(() => {
       const savedCart = localStorage.getItem("cart");
-      return savedCart ? JSON.parse(savedCart) : [];
+      return savedCart ? JSON.parse(savedCart) : []
     });
      // Save the cart to localStorage when it changes
   useEffect(() => {
