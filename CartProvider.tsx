@@ -18,21 +18,18 @@ export default function CartProvider({
     children: React.ReactNode;
   }>) {
 
-    const [cart,setCart]=useState<Cart[]>([])
+    const [cart,setCart]=useState<Cart[]>(() => {
+      const savedCart = localStorage.getItem("cart");
+      return savedCart ? JSON.parse(savedCart) : [];
+    });
      // Save the cart to localStorage when it changes
   useEffect(() => {
-    if (cart.length > 0) {
+    
       localStorage.setItem('cart', JSON.stringify(cart));
-    }
+    
   }, [cart]);
 
-  // Load the cart from localStorage on page load
-  useEffect(() => {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
-  }, []);
+  
 
   
     const total = useMemo(
