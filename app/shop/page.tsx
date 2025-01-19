@@ -32,11 +32,11 @@ export default async function page() {
     <>
     <Header/>
       <div className={`${Montserratfont.className} container w-full max-w-[2000px]`}>
-        <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-4 gap-x-5 gap-y-12 my-20">
           {products.map((product: any) => (
             <div
               key={product._id}
-              className="flex flex-col space-y-6 h-[450px]"
+              className="flex flex-col justify-center gap-y-2 h-[550px] cursor-pointer"
             >
               <div className="h-[300px] w-full">
                 {product.productImage ? (
@@ -54,6 +54,8 @@ export default async function page() {
                 )}
               </div>
               <h1 className="text-center mt-5 text-xl font-bold">{product.title}</h1>
+              <p className='text-center line-clamp-3'>{product.description}</p>
+              <h1 className='text-center text-xl font-bold'>${product.price}</h1>
               
             </div>
           ))}
