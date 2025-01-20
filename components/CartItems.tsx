@@ -65,7 +65,7 @@ export default function cartObj() {
                 </div>
 
               {/* Total */}
-              <p className="text-center text-xs md:text-base relative">{(item.price * (item.quantity || 1)).toFixed(2)} <FaTrash onClick={()=>cartObj.handleDeleteItem(item.id)} className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"/></p>
+              <p className="text-center text-xs md:text-base relative">${(item.price * (item.quantity || 1)).toFixed(2)} <FaTrash onClick={()=>cartObj.handleDeleteItem(item.id)} className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"/></p>
             </div>
           ))
         ) : (

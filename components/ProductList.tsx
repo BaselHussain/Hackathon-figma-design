@@ -18,7 +18,7 @@ import { CartContext } from '@/context';
 
 import { useEffect, useState,useContext } from 'react';
 interface Product {
-    id: number;
+    id: string;
     title: string;
     description: string;
     oldPrice: number;
@@ -82,7 +82,7 @@ export default function ProductList() {
               <SheetTitle className=' text-3xl font-bold text-center'>Cart Items</SheetTitle>
               <SheetDescription className='mt-20'>
                 <ul className='list-decimal  w-full'>
-                    {cartObj.cart.map((item)=>(
+                    {cartObj.cart.map((item:any)=>(
                             
                         <li key={item.id} className='text-black text-sm font-semibold flex items-center justify-between space-x-2 w-full py-4'>
                            

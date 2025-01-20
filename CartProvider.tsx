@@ -3,7 +3,7 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { CartContext } from './context';
 
 interface Cart {
-  id: number;
+  id: string;
   title: string;
   description: string;
   price: number;
@@ -81,7 +81,7 @@ export default function CartProvider({
   );
 
   const handleDeleteItem = useCallback(
-    (id: number) => {
+    (id: string) => {
       setCart((prevCart) => {
         const cartItems = prevCart ?? []; // Fallback to empty array if prevCart is null
         return cartItems.filter((cartItem) => cartItem.id !== id);
@@ -91,7 +91,7 @@ export default function CartProvider({
   );
 
   const handleUpdateQuantity = useCallback(
-    (id: number, change: number) => {
+    (id: string, change: number) => {
       setCart((prevCart) => {
         const cartItems = prevCart ?? []; // Fallback to empty array if prevCart is null
         return cartItems.map((cartItem) =>

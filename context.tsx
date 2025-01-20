@@ -2,7 +2,7 @@
 import { createContext } from "react";
 
 export interface Cart{
-    id: number;
+    id: string;
     title: string;
     description: string;
     price: number;
@@ -12,8 +12,8 @@ export interface Cart{
 interface CartContextType {
     cart: Cart[];
    handleAddtoCart: (item: Cart) => void;
-   handleDeleteItem: (id: number) => void;
-   handleUpdateQuantity:(id:number,change:number)=>void
+   handleDeleteItem: (id: string) => void;
+   handleUpdateQuantity:(id:string,change:number)=>void
    total:number
 }
 

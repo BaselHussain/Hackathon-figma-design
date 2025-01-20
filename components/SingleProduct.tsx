@@ -12,13 +12,17 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { CartContext } from '@/context';
 import { toast } from "sonner"
+
+
 const Montserratfont=Montserrat({
     weight:['400','500','600','700'],
     style:"normal",
     subsets:["latin"]
   })
+
+
   interface singleProduct{
-    id:number;
+    id:string;
     title:string;
     description:string;
     oldPrice:number;
