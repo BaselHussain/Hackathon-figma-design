@@ -5,6 +5,7 @@ import { Montserrat } from "next/font/google";
 import { urlFor } from '@/sanity/lib/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 const Montserratfont = Montserrat({
   weight: ['400', '500', '600', '700'],
@@ -34,6 +35,7 @@ export default async function page() {
       <div className={`${Montserratfont.className} container w-full max-w-[2000px]`}>
         <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-4 gap-x-5 gap-y-12 my-20">
           {products.map((product: any) => (
+            <Link href={`/SanityProduct/${product._id}`} key={product._id}>
             <div
               key={product._id}
               className="flex flex-col justify-center gap-y-2 h-[550px] cursor-pointer"
@@ -58,6 +60,7 @@ export default async function page() {
               <h1 className='text-center text-xl font-bold'>${product.price}</h1>
               
             </div>
+            </Link>
           ))}
         </div>
       </div>
