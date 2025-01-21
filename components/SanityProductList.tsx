@@ -22,8 +22,7 @@ import { FaTrash, FaPlus, FaMinus } from "react-icons/fa6";
 import { FiSearch } from "react-icons/fi"
 import { Label } from './ui/label';
 import { Input } from './ui/input';
-import { Pagination } from './ui/pagination';
-import { PaginationWithLinks } from './ui/pagination-with-links';
+
 
 const Montserratfont = Montserrat({
   weight: ['400', '500', '600', '700'],
@@ -61,9 +60,7 @@ export default function SanityProductList({searchParams}:ShopProps) {
   const [searchQuery,setSearchQuery]=useState<string>("")
  
 
-const currentPage=parseInt(searchParams.page as string || "1")
-const productPerPage=parseInt(searchParams.pageSize as string || "5")
-const totalPages = Math.ceil(filteredProducts.length / productPerPage);
+
 
   const handleFilterProducts = () => {
     const filtered = products.filter((product) =>
@@ -152,14 +149,14 @@ const totalPages = Math.ceil(filteredProducts.length / productPerPage);
           </div>
         </div>
 <div className='w-[90%] mx-auto mt-10 flex justify-end relative'>
-  <Input className='w-[20%] '
+  <Input className='w-[60%] md:w-[35%] lg:w-[30%] '
   placeholder='Search Product'
   value={searchQuery}
   onChange={(e)=>setSearchQuery(e.target.value)}
   />
   <FiSearch className='absolute w-6 h-6 top-1/2 -translate-y-1/2 right-2 cursor-pointer'/>
 </div>
-        <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-4 gap-x-5 gap-y-12 my-14">
+        <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-12 my-14">
           {filteredProducts.map((product) => (
             <div key={product._id} className="flex flex-col justify-center gap-y-2 h-[600px] cursor-pointer">
               <Link href={`/SanityProduct/${product._id}`}>
@@ -243,11 +240,7 @@ const totalPages = Math.ceil(filteredProducts.length / productPerPage);
               </Sheet>
             </div>
           ))}
-<PaginationWithLinks
-page={currentPage}
-pageSize={productPerPage}
-totalCount={totalPages}
-/>
+
           
         </div>
       </div>

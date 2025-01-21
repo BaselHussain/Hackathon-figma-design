@@ -23,7 +23,7 @@ export default function cartObj() {
     <div
       className={`${Montserratfont.className} container w-full max-w-[2000px]`}
     >
-      <div className="w-[90%] mx-auto">
+      <div className="w-[90%] mx-auto my-14">
         {/* Table Header */}
         <div className="w-full grid grid-cols-[2fr_1fr_1fr_1fr] gap-0 border-b pb-4">
           <h1 className="text-base md:text-2xl font-semibold">Items</h1>

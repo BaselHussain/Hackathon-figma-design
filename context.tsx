@@ -9,6 +9,22 @@ export interface Cart{
     quantity?:number;
     src:string
 }
+
+export interface WishList{
+id:string;
+title:string;
+description: string;
+price:number;
+src:string
+}
+
+
+interface WishListContextType{
+    wishList:WishList[];
+    handleAddtoWishList:(item:WishList)=>void;
+    handleDeleteFromWishList:(id:string)=>void
+}
+
 interface CartContextType {
     cart: Cart[];
    handleAddtoCart: (item: Cart) => void;
@@ -18,3 +34,4 @@ interface CartContextType {
 }
 
 export const CartContext=createContext({} as CartContextType)
+export const WishListContext=createContext({} as WishListContextType)

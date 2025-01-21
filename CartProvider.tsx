@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { CartContext } from './context';
+import { CartContext, WishListContext } from './context';
 
 interface Cart {
   id: string;
@@ -10,6 +10,14 @@ interface Cart {
   quantity?: number;
   src: string;
 }
+
+interface WishList{
+  id:string;
+  title:string;
+  description: string;
+  price:number;
+  src:string
+  }
 
 function useLocalStorage<T>(key: string) {
   const [storedValue, setStoredValue] = useState<T | null>(null); 
@@ -49,9 +57,11 @@ export default function CartProvider({
   children: React.ReactNode;
 }>) {
   const [cart, setCart] = useLocalStorage<Cart[]>("cart");
+  const [wishList, setWishList] = useLocalStorage<WishList[]>("wishlist");
 
   // If the cart is null (first time loading), initialize it as an empty array
   const cartData = cart ?? [];
+const wishListData=wishList ?? []
 
   const total = useMemo(
     () =>
@@ -65,7 +75,7 @@ export default function CartProvider({
   const handleAddtoCart = useCallback(
     (item: Cart) => {
       setCart((prevCart) => {
-        const cartItems = prevCart ?? []; // Fallback to empty array if prevCart is null
+        const cartItems = prevCart ?? []; 
         const itemExists = cartItems.find((cartItem) => cartItem.id === item.id);
         if (itemExists) {
           return cartItems.map((cartItem) =>
@@ -80,6 +90,20 @@ export default function CartProvider({
     [setCart]
   );
 
+  const handleAddtoWishList=useCallback(
+    (item:WishList)=>{
+      setWishList((prevWishList)=>{
+      const  wishListItems=prevWishList ?? []
+     const itemExist=wishListItems.find((wishListItem)=>wishListItem.id===item.id)
+     if(itemExist){
+      return wishListItems
+     }
+        return [...wishListItems,item]
+      })
+    },[setWishList]
+  );
+
+
   const handleDeleteItem = useCallback(
     (id: string) => {
       setCart((prevCart) => {
@@ -88,6 +112,16 @@ export default function CartProvider({
       });
     },
     [setCart]
+  );
+
+  const handleDeleteFromWishList = useCallback(
+    (id: string) => {
+      setWishList((prevWishList) => {
+        const wishListItems = prevWishList ?? []; // Fallback to empty array if prevCart is null
+        return wishListItems.filter((wishListItem) => wishListItem.id !== id);
+      });
+    },
+    [setWishList]
   );
 
   const handleUpdateQuantity = useCallback(
@@ -111,10 +145,16 @@ export default function CartProvider({
   );
 
   return (
+    
     <CartContext.Provider
       value={{ cart: cartData, handleAddtoCart, handleDeleteItem, handleUpdateQuantity, total }}
     >
-      {children}
+      <WishListContext.Provider
+        value={{ wishList: wishListData, handleAddtoWishList, handleDeleteFromWishList }}
+      >
+        {children}
+      </WishListContext.Provider>
     </CartContext.Provider>
+    
   );
 }

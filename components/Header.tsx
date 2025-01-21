@@ -19,11 +19,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+ 
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { CartContext } from '@/context';
+import { CartContext, WishListContext } from '@/context';
 
 
 const Montserratfont=Montserrat({
@@ -33,6 +32,7 @@ const Montserratfont=Montserrat({
   })
 export default function Header() {
   const cartItems=useContext(CartContext)
+  const wishListItems=useContext(WishListContext)
   return (
     <>
     <header className='  max-w-[2000px] w-full box-border sticky top-0 z-40 '>
@@ -64,17 +64,7 @@ export default function Header() {
 <h1 className='text-xl md:text-2xl ml-4 md:ml-0 font-bold  md:mx-0'>Bandage</h1>
 <ul className='hidden md:flex items-center space-x-2 lg:space-x-6 font-bold text-[#737373]'>
 <Link href={'/'}><li>Home</li></Link>
-<Link href={'/shop'}>
-<DropdownMenu>
-  <DropdownMenuTrigger><li className='flex items-center '>Shop<RiArrowDropDownLine className='w-3 h-3'/></li></DropdownMenuTrigger>
-  <DropdownMenuContent>
-    <DropdownMenuItem className='cursor-pointer'>Men's</DropdownMenuItem>
-    <DropdownMenuItem className='cursor-pointer'>Women's</DropdownMenuItem>
-    <DropdownMenuItem className='cursor-pointer'>Kids</DropdownMenuItem>
-    <DropdownMenuItem className='cursor-pointer'>Adults</DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
-</Link>
+<Link href={'/shop'}><li>Shop</li></Link>
 <Link href={'/about-us'}><li>About</li></Link>
 <Link href={'/blog'}><li>Blog</li></Link>
 <Link href={'/contact-us'}><li>Contact</li></Link>
@@ -87,8 +77,8 @@ export default function Header() {
     <div className='hidden md:flex items-center space-x-1 lg:space-x-2'><FaRegUser/><span className='font-bold'>Login/Register</span></div>
 <div className='flex items-center  space-x-3  lg:space-x-5 xl:space-x-7'>
     <BsSearch className='w-4 h-4'/>
-    <span className='flex items-center space-x-1 relative'><Link href={'/cart'}><BsCart className='w-4 h-4 ' /></Link><div className=' rounded-full md:rounded-none bg-black md:bg-white text-white md:text-[#23a6f0] absolute md:static bottom-1 md:bottom-0 left-1 md:left-0 text-xs md:text-base w-4 md:w-auto h-4 md:h-auto text-center content-center  -translate-y-1/2 md:-translate-y-0'>{cartItems.cart.length}</div></span>
-    <span className='hidden md:flex items-center space-x-1'><IoIosHeartEmpty className='md:w-5 md:h-5'/><p>1</p></span>
+    <span className='flex items-center space-x-1 relative'><Link href={'/cart'}><BsCart className='w-4 h-4 ' /></Link><div className=' rounded-full md:rounded-none bg-black md:bg-white text-white md:text-[#23a6f0] absolute md:static bottom-1 md:bottom-0 left-1 md:left-0 text-xs md:text-base w-4 md:w-auto h-4 md:h-auto text-center content-center  -translate-y-1/2 md:-translate-y-0'>{cartItems?.cart?.length??0}</div></span>
+    <span className='flex items-center space-x-1 relative'><Link href={'/wishlist'}><IoIosHeartEmpty className='w-4 h-4 ' /></Link><div className=' rounded-full md:rounded-none bg-black md:bg-white text-white md:text-[#23a6f0] absolute md:static bottom-1 md:bottom-0 left-1 md:left-0 text-xs md:text-base w-4 md:w-auto h-4 md:h-auto text-center content-center  -translate-y-1/2 md:-translate-y-0'>{wishListItems.wishList.length??0}</div></span>
 <span>
 <SheetSide/>
 </span>

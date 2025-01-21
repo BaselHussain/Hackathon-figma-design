@@ -2,128 +2,340 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react'
 import { Button } from './ui/button';
 import { FaStar } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
 import { IoEye } from "react-icons/io5";
-import { CartContext } from '@/context';
+import { CartContext, WishListContext } from '@/context';
 import { toast } from "sonner"
-import {Montserrat} from "next/font/google";
+import { Montserrat } from "next/font/google";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { FaTrash, FaPlus, FaMinus } from "react-icons/fa6";
+import Link from 'next/link';
+import { urlFor } from '@/sanity/lib/image';
 
-const Montserratfont=Montserrat({
-    weight:['400','500','600','700'],
-    style:"normal",
-    subsets:["latin"]
-  })
+const Montserratfont = Montserrat({
+  weight: ['400', '500', '600', '700'],
+  style: "normal",
+  subsets: ["latin"]
+})
+
+export default function SanitySingleProduct({ id }: { id: string }) {
+  const cartObj = useContext(CartContext)
+  const wishListObj = useContext(WishListContext)
+
+  interface SanitySingleProduct {
+    _id: string,
+    title: string,
+    description: string,
+    productImage: string,
+    price: number,
+    tags: string[],
+    discountPercentage: number,
+    isNew: boolean
+  }
+
+  interface SanityProductList {
+    _id: string;
+    title: string;
+    description: string;
+    productImage: string;
+    price: number;
+    tags: string[];
+    discountPercentage: number;
+    isNew: boolean;
+  }
+
+const [allProducts,setAllProducts]=useState<SanityProductList[]>()
+  const [sanitySingleProduct, setSanitySingleProduct] = useState<SanitySingleProduct>()
+  const [toggleHeartIcon, setToggleHeartIcon] = useState<boolean | null>(null); 
+  const [relatedProducts,setRelatedProducts]=useState<SanityProductList[]>([])
+  const [tags,setTags]=useState<string[]>([])
 
 
-export default  function SanitySingleProduct({id}:{id:string}) {
-    const cartObj=useContext(CartContext)
-    interface SanitySingleProduct{
-        _id:string,
-        title:string,
-        description:string,
-        productImage:string,
-        price:number,
-        tags:string[],
-        discountPercentage:number,
-        isNew:boolean
-    }
-    const [sanitySingleProduct,setSanitySingleProduct]=useState<SanitySingleProduct>()
+  useEffect(() => {
+      const fetchAllProducts = async () => {
+        const query = `
+          *[_type == "product"]{
+            _id,
+            title,
+            description,
+            "productImage": productImage.asset->url,
+            price,
+            tags,
+            discountPercentage,
+            isNew
+          }
+        `;
+  
+        try {
+          const data = await client.fetch(query);
+          setAllProducts(data);
+        } catch (error) {
+          console.error('Error fetching products:', error);
+        } 
+      };
+  
+      fetchAllProducts();
+    }, []);
   
 
-    useEffect(()=>{
-        const fetchSanitySingleProduct=async()=>{
-            const query=`
-            *[_type=="product" && _id=='${id}'][0]{
-          _id,
-          title,
-          description,
-            "productImage":productImage.asset->url,
-              price,
-              tags,
-              discountPercentage,
-              isNew
-        } `
-        const data=await client.fetch(query)
-        setSanitySingleProduct(data);
-        }
-        fetchSanitySingleProduct()
-    },[])
+  useEffect(() => {
+    const fetchSanitySingleProduct = async () => {
+      const query = `*[_type=="product" && _id=='${id}'][0]{
+        _id,
+        title,
+        description,
+        "productImage":productImage.asset->url,
+        price,
+        tags,
+        discountPercentage,
+        isNew
+      }`
+      const data = await client.fetch(query)
+      setSanitySingleProduct(data);
+      setTags(data.tags || [])
+    }
+    fetchSanitySingleProduct()
+  }, [id])
+
+  useEffect(()=>{
+    const handleRelatedProducts = () => {
+      if (tags.length === 0 || allProducts?.length === 0) return;
+    
+      const related = allProducts?.filter((product) => {
+       
+        const hasMatchingTag = tags.some((tag)=>product.tags.includes(tag))
+    
+        return hasMatchingTag && product._id !== sanitySingleProduct?._id;
+      });
+    
+      setRelatedProducts(related ?? []);
+      console.log(relatedProducts)
+    };
+    handleRelatedProducts()
+  },[tags, allProducts, sanitySingleProduct])
+  
+  
+  
    
-    const handleCartClick = () => {
-        cartObj.handleAddtoCart({
-          id: sanitySingleProduct?._id ?? "",
-          title: sanitySingleProduct?.title ?? "",
-          description: sanitySingleProduct?.description ?? "",
-          price: sanitySingleProduct?.price ?? 0,
-          src: sanitySingleProduct?.productImage ?? "",
-        }) ;
-      
-        toast("Product has been added to your cart", {
-          
-        });
+  
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedState = localStorage.getItem(`toggleHeartIcon_${id}`);
+      if (savedState !== null) {
+        setToggleHeartIcon(JSON.parse(savedState)); // Load state from localStorage
+      } else {
+        setToggleHeartIcon(false); // Default to false if no saved state
       }
+    }
+  }, [id]); // Run only on initial render
 
+  useEffect(() => {
+    if (toggleHeartIcon !== null) {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(`toggleHeartIcon_${id}`, JSON.stringify(toggleHeartIcon)); // Update localStorage
+      }
+    }
+  }, [toggleHeartIcon, id]); // Update localStorage whenever toggleHeartIcon changes
 
-    
-    
+  const handleCartClick = () => {
+    cartObj.handleAddtoCart({
+      id: sanitySingleProduct?._id ?? "",
+      title: sanitySingleProduct?.title ?? "",
+      description: sanitySingleProduct?.description ?? "",
+      price: sanitySingleProduct?.price ?? 0,
+      src: sanitySingleProduct?.productImage ?? "",
+    });
+    toast("Product has been added to your cart");
+  }
+
+  const handleToggleHeartIcon = () => {
+    if (toggleHeartIcon) {
+      handleDeleteHeartClick()
+    } else {
+      handleHeartClick()
+    }
+  }
+
+  const handleHeartClick = () => {
+    wishListObj.handleAddtoWishList({
+      id: sanitySingleProduct?._id ?? "",
+      title: sanitySingleProduct?.title ?? "",
+      description:sanitySingleProduct?.description ?? "",
+      price: sanitySingleProduct?.price ?? 0,
+      src: sanitySingleProduct?.productImage ?? ""
+    });
+    setToggleHeartIcon(true);
+    toast("Product has been added to WishList");
+  }
+
+  const handleDeleteHeartClick = () => {
+    wishListObj.handleDeleteFromWishList(sanitySingleProduct?._id ?? "");
+    setToggleHeartIcon(false);
+    toast("Product has been removed from WishList");
+  }
+
+  if (toggleHeartIcon === null) return <div className='flex justify-center items-center h-screen'>
+  <div className='rounded-full border-2 border-r-transparent animate-spin w-16 h-16 border-gray-600'></div>
+    </div>; // Optional loading state
+
   return (
     <>
-    <Header/>
-    <section className={`${Montserratfont.className} text-gray-600 body-font overflow-hidden`} >
-  <div className="container px-5 py-24 mx-auto">
-    <div className="lg:w-4/5 mx-auto flex flex-wrap">
-      {sanitySingleProduct?.productImage ? (
-                        <Image
-                          src={sanitySingleProduct.productImage}
-                          alt={sanitySingleProduct?.title || 'sanitySingleProduct image'}
-                          width={4000}
-                          height={4000}
-                          className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-                          No Image Available
-                        </div>
-                      )}
-      <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-        <h2 className="text-sm mb-3 text-gray-500 tracking-widest">
-        {sanitySingleProduct?.isNew?"New sanitySingleProduct":" Old Edition"}
-        </h2>
-        <h1 className="text-2xl font-bold mb-1">{sanitySingleProduct?.title}</h1>
-        <div className="flex mb-4">
-          <div className='flex items-center space-x-3'>
-              {Array(4).fill(1).map((item)=>(
-                  <FaStar className='text-yellow-500'/>
-              ))
-          }
-          <span className='text-gray-500 font-semibold'> Reviews</span>
+      <Header />
+      <div className={`${Montserratfont.className} container w-full max-w-[2000px]`}>
+      <div className='my-24 second-div w-[90%] md:w-[83%] lg:w-[80%]  mx-auto flex flex-col md:flex-row md:items-start md:justify-between'>
+      {sanitySingleProduct?.productImage?  (
+      <div className='image-div w-full h-[480px] md:w-[220px] md:h-[300px] lg:w-[280px] lg:h-[400px] xl:w-[350px]  xl:h-[420px] 2xl:w-[450px] 2xl:h-[550px] '>
+      <Image
+      src={sanitySingleProduct?.productImage}
+      alt={sanitySingleProduct?.title}
+      width={1000}
+      height={1000}
+      className='w-full h-full '/>
+      </div>):(
+        <p>no image</p>
+      )
+}
+      <div className='singleProduct-description-div md:h-[420px] h-[500px]  lg:mr-5 xl:mr-[8.5rem] mt-4 md:mt-0  flex flex-col items-start gap-y-4 md:gap-y-2 lg:gap-y-4 xl:gap-y-6'>
+      <h1 className='text-2xl font-bold'>{sanitySingleProduct?.title}</h1>
+      <div className='flex items-center space-x-3'>
+          {Array(4).fill(1).map((item)=>(
+              <FaStar className='text-yellow-500'/>
+          ))
+      }
+      <span className='text-gray-500 font-semibold'>4.5 Reviews</span>
+      </div>
+      <div>
+      <h1 className='text-2xl font-bold'>${sanitySingleProduct?.price}</h1>
+     
+      </div>
+      
+      <p className='w-full md:w-[400px] lg:w-[484px]'>{sanitySingleProduct?.description.substring(0,200)}</p>
+      
+      <div className=' border-[0.3px] border-gray-400 w-full'></div>
+      
+     
+      
+      <div className='flex items-center space-x-6 mt-8 md:mt-5 lg:mt-10'>
+          
+          {toggleHeartIcon ? (
+                  <FaHeart className='w-5 h-5 text-red-600 cursor-pointer' onClick={handleToggleHeartIcon} />
+                ) : (
+                  <FaRegHeart className='w-5 h-5 cursor-pointer' onClick={handleToggleHeartIcon} />
+                )}
+      <BsCart className='w-5 h-5 cursor-pointer'  onClick={handleCartClick}/>
+      <IoEye className='w-5 h-5'/>
+      </div>
+      
+      
+      
+      </div>
+      </div>  
+
+      <div className='w-[85%] mx-auto mt-24 lg:mt-44'>
+        <h1 className='text-left text-3xl font-bold '>Products You may also like</h1>
+        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3'>
+{relatedProducts.map((relatedProduct)=>(
+  <div key={relatedProduct._id} className="flex flex-col justify-center gap-y-2 h-[600px] cursor-pointer">
+  <Link href={`/SanityProduct/${relatedProduct._id}`}>
+    <div className="h-[300px] w-full">
+      {relatedProduct.productImage ? (
+        <Image
+          src={urlFor(relatedProduct.productImage).url()}
+          alt={relatedProduct.title || 'Product image'}
+          width={4000}
+          height={4000}
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+          No Image Available
+        </div>
+      )}
+    </div>
+    <h1 className="text-center mt-5 text-xl font-bold">{relatedProduct.title}</h1>
+    <p className="text-center line-clamp-3">{relatedProduct.description}</p>
+    <h1 className="text-center text-xl font-bold">${relatedProduct.price}</h1>
+  </Link>
+
+  <Sheet>
+    <SheetTrigger asChild>
+      <Button
+        className="cursor-pointer bg-red-700 hover:bg-red-500 w-[60%] mx-auto"
+        onClick={() =>
+          cartObj.handleAddtoCart({
+            id: relatedProduct._id,
+            title: relatedProduct.title,
+            description: relatedProduct.description,
+            price: relatedProduct.price,
+            src: relatedProduct.productImage,
+          })
+        }
+      >
+        Add To Cart
+      </Button>
+    </SheetTrigger>
+    <SheetContent className="overflow-y-scroll">
+      <SheetHeader>
+        <SheetTitle className="text-3xl font-bold text-center">Cart Items</SheetTitle>
+        <SheetDescription className="mt-20">
+          <ul className="list-decimal w-full">
+            {cartObj.cart.map((item) => (
+              <li
+                key={item.id}
+                className="text-black text-sm font-semibold flex items-center justify-between space-x-2 w-full py-4"
+              >
+                <div className="h-[70px] w-[50px]">
+                  <Image
+                    src={item.src}
+                    alt="product"
+                    width={1000}
+                    height={1000}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <span>
+                  {item.title}
+                  <p className="flex items-center gap-2 justify-center mt-2">
+                    <FaMinus onClick={() => cartObj.handleUpdateQuantity(item.id, -1)} />
+                    <span>{item.quantity}</span>
+                    <FaPlus onClick={() => cartObj.handleUpdateQuantity(item.id, 1)} />
+                  </p>
+                </span>
+                <span>${item.price}</span>
+                <FaTrash className="cursor-pointer" onClick={() => cartObj.handleDeleteItem(item.id)} />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-20">
+            <h1 className="text-center text-black text-2xl font-bold">
+              SubTotal: ${cartObj.total.toFixed(2)}
+            </h1>
           </div>
-        </div>
-        <span className=" text-2xl font-bold">${sanitySingleProduct?.price.toFixed(2)}</span>
-        <p className="leading-relaxed mt-5">{sanitySingleProduct?.description.substring(0,400)}</p>
-        <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-        </div>
-        
-          
-          <div className='flex items-center space-x-6 mt-8 md:mt-5 lg:mt-10'>
-              <Button className='text-white bg-[#23a6f0] hover:bg-[#20709e] '>Select Options</Button>
-          <CiHeart className='w-5 h-5'/>
-          <BsCart className='w-5 h-5 cursor-pointer'  onClick={handleCartClick}/>
-          <IoEye className='w-5 h-5'/>
-          
-          
+        </SheetDescription>
+      </SheetHeader>
+    </SheetContent>
+  </Sheet>
+</div>
+))}
         </div>
       </div>
-    </div>
-  </div>
-</section>
-<Footer/>
+
+      </div>
+      <Footer />
     </>
   )
 }
