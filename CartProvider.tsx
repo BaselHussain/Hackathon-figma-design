@@ -132,10 +132,7 @@ const wishListData=wishList ?? []
           cartItem.id === id
             ? {
                 ...cartItem,
-                quantity:
-                  (cartItem.quantity || 1) + change > 0
-                    ? (cartItem.quantity || 1) + change
-                    : 1,
+                quantity: (cartItem.quantity || 1) + change > 0? (cartItem.quantity || 1) + change: 1,
               }
             : cartItem
         );

@@ -41,12 +41,10 @@ interface SanityProductList {
   isNew: boolean;
 }
 
-interface ShopProps{
-  searchParams:{[key:string]:string | undefined}
-}
 
 
-export default function SanityProductList({searchParams}:ShopProps) {
+
+export default function SanityProductList() {
   const cartObj = useContext(CartContext);
   if (!cartObj) return null;
 
