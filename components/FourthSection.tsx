@@ -13,12 +13,12 @@ export default function FourthSection() {
   return (
     <>
     <div className={`${Montserratfont.className} container w-full max-w-[2000px] bg-[#23856d] text-white  md:max-h-[709px] `}>
-  <div className="w-[85%] lg:w-[75%] mx-auto  flex flex-col justify-center items-center md:flex-row md:justify-between  h-full  space-y-10 md:space-y-0 md:space-x-32">
+  <div className="w-[85%] lg:w-[75%] mx-auto  flex flex-col justify-center items-center md:flex-row md:justify-between  h-full  space-y-10 md:space-y-0 md:gap-x-32 xl:gap-x-44 ">
     
     <div className="text-div mt-24 md:mt-0 flex flex-col space-y-5    order-1 md:order-none ">
-      <h3 className="font-bold text-center md:text-start">Summer 2020</h3>
-      <h1 className="text-4xl font-bold text-center md:text-start">Vita Classic Product</h1>
-      <p className='text-center md:text-start'>
+      <h3 className="font-bold 2xl:text-xl text-center md:text-start">Summer 2020</h3>
+      <h1 className="text-4xl 2xl:text-6xl font-bold text-center md:text-start">Vita Classic Product</h1>
+      <p className='text-center 2xl:text-xl md:text-start'>
         We know how large objects will act, We know how are objects will act, We
         know
       </p>
@@ -33,13 +33,13 @@ export default function FourthSection() {
     </div>
 
     
-    <div className="image-div xl:h-[709px] md:pt-16 lg:pt-20 flex flex-col justify-center mt-10 w-full  order-2 md:order-none">
+    <div className="image-div 2xl:ml-52 xl:h-[709px] md:pt-16 lg:pt-20 flex flex-col justify-end  w-full  order-2 md:order-none">
       <Image
         src={"/images/hero-man.png"}
         alt="heroman"
         width={700}
         height={700}
-        className="h-full w-[90%]   "
+        className="h-full w-[90%] 2xl:w-[70%] object-fill"
       />
      
     </div>
