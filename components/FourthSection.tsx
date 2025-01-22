@@ -33,13 +33,13 @@ export default function FourthSection() {
     </div>
 
     
-    <div className="image-div 2xl:ml-52 xl:h-[709px] md:pt-16 lg:pt-20 flex flex-col justify-end  w-full  order-2 md:order-none">
+    <div className="image-div  xl:h-[709px] md:pt-16 lg:pt-20 flex flex-col justify-end  w-full  order-2 md:order-none">
       <Image
         src={"/images/hero-man.png"}
         alt="heroman"
         width={700}
         height={700}
-        className="h-full w-[90%] 2xl:w-[70%] object-fill"
+        className="h-full w-[90%] 2xl:w-[80%] object-fill"
       />
      
     </div>
