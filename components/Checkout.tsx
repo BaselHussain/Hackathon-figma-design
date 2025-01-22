@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
+"use client"
+import React, { useContext, useState } from 'react';
 import { Montserrat } from "next/font/google";
 import { Button } from './ui/button';
 import { CartContext } from '@/context';
+import CheckOutForm from './CheckOutForm';
 const Montserratfont = Montserrat({
     weight: ["400", "500", "600", "700"],
     style: "normal",
@@ -9,6 +11,7 @@ const Montserratfont = Montserrat({
   });
 
 export default function Checkout() {
+  const [isClicked,setIsclicked]=useState<boolean>(false)
     const cartObj=useContext(CartContext)
   return (
     <>
@@ -20,11 +23,11 @@ export default function Checkout() {
             </div>
            
 
-<Button className='w-[60%] mx-auto mt-6 md:mt-10'>Check Out</Button>
+<Button className='w-[60%] mx-auto mt-6 md:mt-10' onClick={()=>setIsclicked(true)}>Check Out</Button>
 
         </div>
-
     </div>
+    {isClicked && <CheckOutForm/>}
     </>
   )
 }
