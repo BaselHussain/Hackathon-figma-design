@@ -33,15 +33,15 @@ export default function FourthSection() {
     </div>
 
     
-    <div className="image-div md:pt-16 lg:pt-20 flex flex-col justify-center mt-10 w-full  order-2 md:order-none">
+    <div className="image-div xl:h-[709px] md:pt-16 lg:pt-20 flex flex-col justify-center mt-10 w-full  order-2 md:order-none">
       <Image
         src={"/images/hero-man.png"}
         alt="heroman"
         width={700}
         height={700}
-        className="h-[90%] w-[90%]  "
+        className="h-full w-[90%]   "
       />
-      <h1></h1>
+     
     </div>
   </div>
 </div>
