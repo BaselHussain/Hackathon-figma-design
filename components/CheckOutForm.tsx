@@ -1,18 +1,19 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import {Montserrat} from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { useRouter } from 'next/navigation';
 import { Checkbox } from './ui/checkbox';
-const Montserratfont=Montserrat({
-  weight:['400','500','600','700'],
-  style:"normal",
-  subsets:["latin"]
+import { Button } from './ui/button';
+const Montserratfont = Montserrat({
+  weight: ['400', '500', '600', '700'],
+  style: "normal",
+  subsets: ["latin"]
 })
 
 
 function CheckOutForm() {
-const router=useRouter()
+  const router = useRouter()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -30,12 +31,27 @@ const router=useRouter()
     termsAndConditions: false,
   });
 
-  const handleChange = (event:any) => {
+  const handleChange = (event: any) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name.includes('.')) {
+      // Handle nested fields
+      const [parent, child] = name.split('.');
+      setFormData((prevFormData: any) => ({
+        ...prevFormData,
+        [parent]: {
+          ...prevFormData[parent],
+          [child]: value,
+        },
+      }));
+    } else {
+      // Handle top-level fields
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleSubmit = (event:any) => {
+
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log(formData);
     router.push('/order')
@@ -111,8 +127,8 @@ const router=useRouter()
               placeholder="Street"
               value={formData.shippingAddress.street}
               onChange={handleChange}
-              required
             />
+
           </div>
 
           {/* Payment Method */}
@@ -186,9 +202,9 @@ const router=useRouter()
           </div>
 
           {/* Submit Button */}
-          <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <Button type="submit" className="w-full   font-bold py-2 px-4 rounded">
             Place Order
-          </button>
+          </Button>
         </form>
       </div>
     </div>
