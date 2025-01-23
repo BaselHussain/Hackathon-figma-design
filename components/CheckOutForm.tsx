@@ -1,292 +1,198 @@
-"use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import React, { ChangeEvent, useState } from 'react';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import {Montserrat} from "next/font/google";
+import { useRouter } from 'next/navigation';
+import { Checkbox } from './ui/checkbox';
+const Montserratfont=Montserrat({
+  weight:['400','500','600','700'],
+  style:"normal",
+  subsets:["latin"]
+})
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "./ui/checkbox";
-import { Montserrat } from "next/font/google";
-const Montserratfont = Montserrat({
-  weight: ["400", "500", "600", "700"],
-  style: "normal",
-  subsets: ["latin"],
-});
 
-// Define Zod schema outside the component
-const AddressSchema = z.object({
-  street: z.string().min(1, "Street address is required"),
-  city: z.string().min(1, "City is required"),
-  postalCode: z
-    .string()
-    .min(5, "Postal code must be at least 5 characters")
-    .max(10, "Postal code must be at most 10 characters"),
-  country: z.string().min(1, "Country is required"),
-});
-
-export const CheckoutSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z
-    .string()
-    .email("Invalid email address")
-    .min(1, "Email is required"),
-  phoneNumber: z
-    .string()
-    .min(10, "Phone number must be at least 10 digits")
-    .max(15, "Phone number must be at most 15 digits")
-    .optional(),
-  shippingAddress: AddressSchema,
-  billingAddress: AddressSchema.optional(),
-  paymentMethod: z.enum(["creditCard", "paypal", "bankTransfer"], {
-    message: "Please select a payment method",
-  }),
-  creditCardDetails: z
-    .object({
-      cardNumber: z
-        .string()
-        .length(16, "Card number must be 16 digits")
-        .regex(/^\d{16}$/, "Card number must only contain digits")
-        .optional(),
-      expiryDate: z
-        .string()
-        .regex(
-          /^(0[1-9]|1[0-2])\/?([0-9]{2})$/,
-          "Expiry date must be in MM/YY format"
-        )
-        .optional(),
-      cvv: z
-        .string()
-        .length(3, "CVV must be 3 digits")
-        .regex(/^\d{3}$/, "CVV must only contain digits")
-        .optional(),
-    })
-    .refine((data) => {
-      if (data.cardNumber || data.expiryDate || data.cvv) {
-        return !!data.cardNumber && !!data.expiryDate && !!data.cvv;
-      }
-      return true;
-    }, {
-      message: "Credit card details are incomplete",
-    })
-    .optional(),
-  termsAndConditions: z
-    .boolean()
-    .refine((val) => val === true, "You must accept the terms and conditions"),
-});
-
-export default function CheckOutForm() {
-  const router = useRouter();
-
-  const form = useForm<z.infer<typeof CheckoutSchema>>({
-    resolver: zodResolver(CheckoutSchema),
-    defaultValues: {
-      paymentMethod: "creditCard", // Set default value for payment method to avoid the validation error
+function CheckOutForm() {
+const router=useRouter()
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    shippingAddress: {
+      street: '',
     },
+    paymentMethod: 'creditCard',
+    creditCardDetails: {
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+    },
+    termsAndConditions: false,
   });
 
-  const [paymentMethod, setPaymentMethod] = useState<string | undefined>(
-    form.watch("paymentMethod")
-  );
+  const handleChange = (event:any) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-  // Define the onSubmit function
-  const onSubmit: SubmitHandler<z.infer<typeof CheckoutSchema>> = (values) => {
-    console.log(values);
-    router.push("/order");
-    alert("Order placed")
+  const handleSubmit = (event:any) => {
+    event.preventDefault();
+    console.log(formData);
+    router.push('/order')
+    // Handle form submission here, e.g., send data to server
   };
 
   return (
     <div className={`${Montserratfont.className} container w-full max-w-[2000px] mt-64`}>
       <div className="w-[65%] mx-auto border py-4 px-6 my-14">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {/* First Name */}
-            <FormField
-              control={form.control}
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* First Name */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="firstName">First Name</Label>
+            <Input
+              type="text"
+              id="firstName"
               name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>First Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your first name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              placeholder="Enter your first name"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
             />
+          </div>
 
-            {/* Last Name */}
-            <FormField
-              control={form.control}
+          {/* Last Name */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input
+              type="text"
+              id="lastName"
               name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Last Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your last name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              placeholder="Enter your last name"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
             />
+          </div>
 
-            {/* Email */}
-            <FormField
-              control={form.control}
+          {/* Email */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              type="email"
+              id="email"
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
             />
+          </div>
 
-            {/* Phone Number */}
-            <FormField
-              control={form.control}
+          {/* Phone Number */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="phoneNumber">Phone Number</Label>
+            <Input
+              type="tel"
+              id="phoneNumber"
               name="phoneNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your phone number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              placeholder="Enter your phone number"
+              value={formData.phoneNumber}
+              onChange={handleChange}
             />
+          </div>
 
-            {/* Shipping Address */}
-            <FormField
-              control={form.control}
+          {/* Shipping Address */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="shippingAddress">Shipping Address</Label>
+            <Input
+              type="text"
+              id="shippingAddress"
               name="shippingAddress.street"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Shipping Address</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Street" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              placeholder="Street"
+              value={formData.shippingAddress.street}
+              onChange={handleChange}
+              required
             />
+          </div>
 
-            {/* Payment Method */}
-            <FormField
-              control={form.control}
+          {/* Payment Method */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="paymentMethod">Payment Method</Label>
+            <select
+              id="paymentMethod"
               name="paymentMethod"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Payment Method</FormLabel>
-                  <FormControl>
-                    <select
-                      {...field}
-                      onChange={(e) => {
-                        setPaymentMethod(e.target.value);
-                        field.onChange(e.target.value); // Update form state
-                      }}
-                    >
-                      <option value="creditCard">Credit Card</option>
-                      <option value="paypal">PayPal</option>
-                      <option value="bankTransfer">Bank Transfer</option>
-                    </select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              value={formData.paymentMethod}
+              onChange={handleChange}
+              className='w-32'
+            >
+              <option value="creditCard">Credit Card</option>
+              <option value="paypal">PayPal</option>
+              <option value="bankTransfer">Bank Transfer</option>
+            </select>
+          </div>
 
-            {/* Credit Card Details */}
-            {paymentMethod === "creditCard" && (
-              <>
-                <FormField
-                  control={form.control}
+          {/* Credit Card Details */}
+          {formData.paymentMethod === 'creditCard' && (
+            <>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="cardNumber">Card Number</Label>
+                <Input
+                  type="text"
+                  id="cardNumber"
                   name="creditCardDetails.cardNumber"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Card Number</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter your card number" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  placeholder="Enter your card number"
+                  value={formData.creditCardDetails.cardNumber}
+                  onChange={handleChange}
+                  required
                 />
-                <FormField
-                  control={form.control}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="expiryDate">Expiry Date</Label>
+                <Input
+                  type="text"
+                  id="expiryDate"
                   name="creditCardDetails.expiryDate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Expiry Date</FormLabel>
-                      <FormControl>
-                        <Input placeholder="MM/YY" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  placeholder="MM/YY"
+                  value={formData.creditCardDetails.expiryDate}
+                  onChange={handleChange}
+                  required
                 />
-                <FormField
-                  control={form.control}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="cvv">CVV</Label>
+                <Input
+                  type="text"
+                  id="cvv"
                   name="creditCardDetails.cvv"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CVV</FormLabel>
-                      <FormControl>
-                        <Input placeholder="CVV" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  placeholder="CVV"
+                  value={formData.creditCardDetails.cvv}
+                  onChange={handleChange}
+                  required
                 />
-              </>
-            )}
+              </div>
+            </>
+          )}
 
-            {/* Terms and Conditions */}
-            <FormField
-              control={form.control}
+          {/* Terms and Conditions */}
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="termsAndConditions"
               name="termsAndConditions"
-              render={({ field }) => {
-                const { value, ...fieldWithoutValue } = field; // Destructure and omit `value`
-                return (
-                  <FormItem className="flex gap-2 items-center">
-                    <FormControl>
-                      <Checkbox
-                        {...fieldWithoutValue} // Spread the remaining props
-                        checked={field.value} // Explicitly set the `checked` prop
-                        onCheckedChange={field.onChange} // Map `onCheckedChange` for boolean handling
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      I accept the <span className="text-blue-500">Terms & Conditions</span>.
-                    </FormDescription>
-                  </FormItem>
-                );
-              }}
+              required
             />
+            <Label htmlFor="termsAndConditions">
+              I accept the <span className="text-blue-500">Terms & Conditions</span>.
+            </Label>
+          </div>
 
-            {/* Submit Button */}
-            <Button type="submit" className="w-full">
-              Place Order
-            </Button>
-          </form>
-        </Form>
+          {/* Submit Button */}
+          <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Place Order
+          </button>
+        </form>
       </div>
     </div>
   );
 }
+
+export default CheckOutForm;
