@@ -26,7 +26,7 @@ export default function page() {
     <div className={`${Montserratfont.className} container `}>
 
 <div className='w-[90%] md:w-[70%] mx-auto  bg-card  mt-14'>
-<h1 className='text-center font-bold text-2xl md:text-3xl'>Thank you for your order Mr.{singleOrder.name}!</h1>
+<h1 className='text-center font-bold text-2xl md:text-3xl'>Thank you for your order Mr./Ms.{singleOrder.name}!</h1>
 <p className='text-center font-semibold'>Your order id is {singleOrder?.id}</p>
 <p className='text-center font-semibold'>We will send you a confirmation e-mail soon at {singleOrder.email}</p>
 <p className='text-center font-semibold'>Estimated Delivery time is 3-4 days</p>
