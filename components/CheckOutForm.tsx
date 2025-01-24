@@ -1,20 +1,38 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Montserrat } from "next/font/google";
 import { useRouter } from 'next/navigation';
 import { Checkbox } from './ui/checkbox';
 import { Button } from './ui/button';
+import { OrderContext } from '@/context';
 const Montserratfont = Montserrat({
   weight: ['400', '500', '600', '700'],
   style: "normal",
   subsets: ["latin"]
 })
 
+interface FormData{
+  firstName:string;
+  lastName:string;
+  email:string;
+  phoneNumber:string;
+  shippingAddress:{
+    street:string
+  };
+  paymentMethod:string;
+  creditCardDetails:{
+    cardNumber:string;
+    expiryDate:string;
+    cvv:string
+  };
+  termsAndConditions:boolean
+}
 
 function CheckOutForm() {
   const router = useRouter()
-  const [formData, setFormData] = useState({
+  const orderObj=useContext(OrderContext)
+  const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -53,9 +71,17 @@ function CheckOutForm() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(formData);
-    router.push('/order')
-    // Handle form submission here, e.g., send data to server
+    const newOrder = {
+      id: Math.floor(Math.random() * 90000 + 10000), 
+      name: formData.firstName + ' ' + formData.lastName,
+      email: formData.email,
+      address: formData.shippingAddress.street,
+    };
+  
+    
+    orderObj.handleNewOrder(newOrder);
+    router.push(`/order/${newOrder.id}`)
+    
   };
 
   return (

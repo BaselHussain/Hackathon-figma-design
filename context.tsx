@@ -18,6 +18,13 @@ price:number;
 src:string
 }
 
+export interface Order{
+    id:number;
+    name:string;
+    email: string;
+    address:string;
+    }
+
 
 interface WishListContextType{
     wishList:WishList[];
@@ -33,5 +40,11 @@ interface CartContextType {
    total:number
 }
 
+interface OrderContextType {
+    orders: Order[];
+   handleNewOrder: (item: Order) => void;
+}
+
 export const CartContext=createContext({} as CartContextType)
 export const WishListContext=createContext({} as WishListContextType)
+export const OrderContext=createContext({} as OrderContextType)

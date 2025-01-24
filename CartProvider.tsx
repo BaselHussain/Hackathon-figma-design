@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { CartContext, WishListContext } from './context';
+import { CartContext, OrderContext, WishListContext } from './context';
 
 interface Cart {
   id: string;
@@ -18,6 +18,13 @@ interface WishList{
   price:number;
   src:string
   }
+
+  export interface Order{
+    id:number;
+    name:string;
+    email: string;
+    address:string;
+    }
 
 function useLocalStorage<T>(key: string) {
   const [storedValue, setStoredValue] = useState<T | null>(null); 
@@ -58,10 +65,13 @@ export default function CartProvider({
 }>) {
   const [cart, setCart] = useLocalStorage<Cart[]>("cart");
   const [wishList, setWishList] = useLocalStorage<WishList[]>("wishlist");
+  const [orders, setOrders] = useLocalStorage<Order[]>("orders");
+  
 
   // If the cart is null (first time loading), initialize it as an empty array
   const cartData = cart ?? [];
 const wishListData=wishList ?? []
+const orderData=orders ?? []
 
   const total = useMemo(
     () =>
@@ -102,6 +112,19 @@ const wishListData=wishList ?? []
       })
     },[setWishList]
   );
+
+  const handleNewOrder=useCallback(
+    (item:Order)=>{
+setOrders((prevOrders)=>{
+  const orderItems=prevOrders ?? []
+  const orderExist=orderItems.find((orderItem)=>orderItem.id === item.id)
+  if(orderExist){
+    return orderItems
+  }
+  return[...orderItems,item]
+})
+  },[]
+)
 
 
   const handleDeleteItem = useCallback(
@@ -149,7 +172,11 @@ const wishListData=wishList ?? []
       <WishListContext.Provider
         value={{ wishList: wishListData, handleAddtoWishList, handleDeleteFromWishList }}
       >
+        <OrderContext.Provider
+        value={{orders: orderData,handleNewOrder}}>
         {children}
+
+        </OrderContext.Provider>
       </WishListContext.Provider>
     </CartContext.Provider>
     
