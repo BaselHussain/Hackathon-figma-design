@@ -5,6 +5,7 @@ import {Montserrat} from "next/font/google";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { OrderContext } from '@/context';
+import Link from 'next/link';
 const Montserratfont=Montserrat({
     weight:['400','500','600','700'],
     style:"normal",
@@ -22,14 +23,15 @@ export default function page() {
   return (
     <>
     <Header/>
-    <div className={`${Montserratfont.className} container w-full max-w-[2000px]`}>
-<div className='w-full flex justify-center  h-screen'>
-<div className='w-[60%] bg-card  mt-14'>
-<h1 className='text-center font-bold text-3xl'>Thank you for your order Mr.{singleOrder.name}!</h1>
+    <div className={`${Montserratfont.className} container `}>
+
+<div className='w-[90%] md:w-[70%] mx-auto  bg-card  mt-14'>
+<h1 className='text-center font-bold text-2xl md:text-3xl'>Thank you for your order Mr.{singleOrder.name}!</h1>
 <p className='text-center font-semibold'>Your order id is {singleOrder?.id}</p>
 <p className='text-center font-semibold'>We will send you a confirmation e-mail soon at {singleOrder.email}</p>
 <p className='text-center font-semibold'>Estimated Delivery time is 3-4 days</p>
-</div>
+<Link href={'/shop'}><p className='mt-8 text-center font-semibold text-blue-600 underline cursor-pointer'>Go back!</p></Link>
+
 </div>
     </div>
     <Footer/>

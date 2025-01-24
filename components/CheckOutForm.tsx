@@ -5,7 +5,7 @@ import { Montserrat } from "next/font/google";
 import { useRouter } from 'next/navigation';
 import { Checkbox } from './ui/checkbox';
 import { Button } from './ui/button';
-import { OrderContext } from '@/context';
+import { CartContext, OrderContext } from '@/context';
 const Montserratfont = Montserrat({
   weight: ['400', '500', '600', '700'],
   style: "normal",
@@ -32,6 +32,7 @@ interface FormData{
 function CheckOutForm() {
   const router = useRouter()
   const orderObj=useContext(OrderContext)
+  const cartObj=useContext(CartContext)
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
@@ -81,7 +82,10 @@ function CheckOutForm() {
     
     orderObj.handleNewOrder(newOrder);
     router.push(`/order/${newOrder.id}`)
-    
+    localStorage.removeItem('cart');
+cartObj.cart.length=0
+
+ 
   };
 
   return (
