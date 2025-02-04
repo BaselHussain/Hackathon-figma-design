@@ -28,7 +28,7 @@ export default function AboutUsThirdSection() {
 
 <div className='fourth-div flex flex-col justify-center items-center space-y-2'>
 <h1 className='text-5xl font-bold'>100+</h1>
-<span className='text-sm font-semibold text-[#737373]'>Top Partner's</span>
+<span className='text-sm font-semibold text-[#737373]'>Top Partner&apos;s</span>
 </div>
 
     </div>

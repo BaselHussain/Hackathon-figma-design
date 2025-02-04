@@ -1,6 +1,6 @@
 "use client";
 import { CartContext } from "@/context";
-import React, { useContext,useState } from "react";
+import React, { useContext } from "react";
 import { Montserrat } from "next/font/google";
 import { FaTrash } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
@@ -13,7 +13,8 @@ const Montserratfont = Montserrat({
   subsets: ["latin"],
 });
 
-export default function cartObj() {
+export default function CartItems() {
+
   const cartObj = useContext(CartContext);
 
     

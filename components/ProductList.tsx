@@ -17,6 +17,15 @@ import Link from 'next/link';
 import { CartContext } from '@/context';
 
 import { useEffect, useState,useContext } from 'react';
+
+interface Cart {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  quantity?: number;
+  src: string;
+}
 interface Product {
     id: string;
     title: string;
@@ -49,7 +58,7 @@ export default function ProductList() {
     };
   
     fetchProducts();
-  }, []);
+  }, [products]);
 
   return (
     <div className='w-full container max-w-[2000px]'>
@@ -82,7 +91,7 @@ export default function ProductList() {
               <SheetTitle className=' text-3xl font-bold text-center'>Cart Items</SheetTitle>
               <SheetDescription className='mt-20'>
                 <ul className='list-decimal  w-full'>
-                    {cartObj.cart.map((item:any)=>(
+                    {cartObj.cart.map((item:Cart)=>(
                             
                         <li key={item.id} className='text-black text-sm font-semibold flex items-center justify-between space-x-2 w-full py-4'>
                            

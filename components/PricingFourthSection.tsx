@@ -17,8 +17,8 @@ the two major realms of Classical physics</p>
 
 <div className='second-div w-[80%] mx-auto'>
 <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-20'>
-{Array(6).fill(1).map((item)=>(
-    <div className=''>
+{Array(6).fill(1).map((item,i)=>(
+    <div className='' key={i}>
 <h1 className='font-bold'>the quick fox jumps over the lazy dog</h1>
 <p className='text-[#737373]'>Met minim Mollie non desert Alamo est sit cliquey 
 dolor do met sent. RELIT official consequent door ENIM 

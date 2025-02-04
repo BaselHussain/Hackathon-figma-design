@@ -18,7 +18,7 @@ export default function SecondSection() {
     {/* Header Section */}
     <div className="gap-y-4 mb-8">
       <h1 className="text-center font-bold text-xl md:text-2xl lg:text-3xl">
-        Editor's Pick
+        Editor&apos;s Pick
       </h1>
       <p className="text-center text-sm md:text-base">
         Problems trying to resolve the conflict between

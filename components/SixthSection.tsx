@@ -66,7 +66,7 @@ className='h-full w-full'/>
 
 <div className='font-[500]'>
 <p>{post.title}</p>
-<p>(L'integral)</p>
+<p>(L&apos;integral)</p>
 </div>
 <p className='text-[#737373] text-sm'>{post.description}</p>
 

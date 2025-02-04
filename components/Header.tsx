@@ -7,21 +7,12 @@ import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
 import Link from 'next/link';
 import {  SheetSide } from './SheetBar';
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
- 
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { CartContext, WishListContext } from '@/context';
 
 

@@ -125,7 +125,7 @@ const [allProducts,setAllProducts]=useState<SanityProductList[]>()
       console.log(relatedProducts)
     };
     handleRelatedProducts()
-  },[tags, allProducts, sanitySingleProduct])
+  },[tags, allProducts, sanitySingleProduct,relatedProducts])
   
   
   
@@ -212,8 +212,8 @@ const [allProducts,setAllProducts]=useState<SanityProductList[]>()
       <div className='singleProduct-description-div md:h-[420px] h-[500px]  lg:mr-5 xl:mr-[8.5rem] mt-4 md:mt-0  flex flex-col items-start gap-y-4 md:gap-y-2 lg:gap-y-4 xl:gap-y-6'>
       <h1 className='text-2xl font-bold'>{sanitySingleProduct?.title}</h1>
       <div className='flex items-center space-x-3'>
-          {Array(4).fill(1).map((item)=>(
-              <FaStar className='text-yellow-500'/>
+          {Array(4).fill(1).map((item,i)=>(
+              <FaStar key={i} className='text-yellow-500'/>
           ))
       }
       <span className='text-gray-500 font-semibold'>4.5 Reviews</span>

@@ -56,10 +56,10 @@ export default function ContactUsSecondSection() {
 <div className='w-[321px] md:w-[607px] mx-auto flex flex-col  items-center gap-y-6 mt-20'>
     <div className='flex flex-col items-center'>
     <PiArrowBendRightDownBold className='text-[#23a6f0] w-14 h-14'/>
-    <p className='font-bold'>WE Can't WAIT TO MEET YOU</p>
+    <p className='font-bold'>WE Can&apos;t WAIT TO MEET YOU</p>
     </div>
     
-    <h1 className='text-2xl lg:text-3xl font-bold'>Let's Talk</h1>
+    <h1 className='text-2xl lg:text-3xl font-bold'>Let&apos;s Talk</h1>
     <Button className='bg-[#23a6f0] text-white hover:bg-[#206a96] py-6 px-8'>Try It Free Now</Button>
 </div>
 </div>

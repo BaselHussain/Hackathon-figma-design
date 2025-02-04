@@ -1,10 +1,11 @@
 "use client"
 import Header from '@/components/Header'
 
-import React,{useContext} from 'react';
-import CartItems from '@/components/CartItems';
+import React from 'react';
+
 import Footer from '@/components/Footer';
 import Checkout from '@/components/Checkout';
+import CartItems from '@/components/CartItems';
 ;
 
 
@@ -24,6 +25,7 @@ export default function page() {
     <div className='mt-96'>
       
     </div>
+
      <Footer/>
     </>
   )
