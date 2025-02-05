@@ -33,8 +33,14 @@ export default function Checkout() {
   
       console.log(checkoutSession);
 
-   // Clear cart in localStorage before leaving
+ 
    localStorage.removeItem("cart");
+
+
+const orderData={
+  _type:'order'
+}
+
 
       const result = await stripe?.redirectToCheckout({
         sessionId: checkoutSession.data.id,
