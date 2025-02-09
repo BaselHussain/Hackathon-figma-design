@@ -4,38 +4,65 @@ export default {
     type: "document",
     fields: [
       {
-        name: "stripeId",
-        title: "Stripe ID",
+        name: "firstName",
+        title: "First Name",
         type: "string",
       },
       {
-        name: "customerEmail",
-        title: "Customer Email",
+        name: "lastName",
+        title: "Last Name",
         type: "string",
       },
       {
-        name: "totalAmount",
-        title: "Total Amount",
-        type: "number",
-      },
-      {
-        name: "currency",
-        title: "Currency",
+        name: "address",
+        title: "Address",
         type: "string",
       },
       {
-        name: "status",
-        title: "Status",
+        name: "city",
+        title: "City",
         type: "string",
-        options: {
-          list: ["pending", "completed", "failed"],
+      },
+      {
+        name: "zipcode",
+        title: "Zip Code",
+        type: "string",
+      },
+      {
+        name: "phone",
+        title: "Phone",
+        type: "string",
+      }, 
+      {
+        name: "email",
+        title: "Email",
+        type: "string",
+      }, 
+      {
+        name: "cartItems",
+        title: "Cart Items",
+        type: "array",
+        of:[{ type : "reference", to :{type : "product"}}]
+      },
+      {
+        name:"total",
+        title:"Total",
+        type:"number"
+      },
+      {
+        name:"status",
+        title:"Order Status",
+        type:"string",
+        options:{
+          list:[
+            {title:"Pending", value:"pending"},
+            {title:"Success", value:"success"},
+            {title:"Dispatch", value:"dispatch"}
+          ],
+          layout:"radio"
         },
-      },
-      {
-        name: "createdAt",
-        title: "Created At",
-        type: "datetime",
-      },
+        initialValue:"pending"
+      }
     ],
   };
   

@@ -34,7 +34,7 @@ const session=await stripe.checkout.sessions.create({
     },
     line_items:arrangedItems,
     mode:'payment',
-    success_url:`${process.env.HOST}/success`,
+    success_url:`${process.env.HOST}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url:`${process.env.HOST}/cart`,
     metadata:{
         images:JSON.stringify(items.map((item:Cart)=>item.src))

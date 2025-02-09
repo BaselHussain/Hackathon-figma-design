@@ -33,12 +33,12 @@ export default function Checkout() {
   
       console.log(checkoutSession);
 
- 
-   localStorage.removeItem("cart");
+
 
 
 const orderData={
-  _type:'order'
+  _type:'order',
+
 }
 
 
