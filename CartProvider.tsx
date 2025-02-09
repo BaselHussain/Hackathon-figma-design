@@ -66,7 +66,7 @@ export default function CartProvider({
   const [cart, setCart] = useLocalStorage<Cart[]>("cart");
   const [wishList, setWishList] = useLocalStorage<WishList[]>("wishlist");
   const [orders, setOrders] = useLocalStorage<Order[]>("orders");
-  
+  const [toggleHeartIcon, setToggleHeartIcon] = useLocalStorage<boolean >("toggleHeartIcon"); 
 
   // If the cart is null (first time loading), initialize it as an empty array
   const cartData = cart ?? [];
@@ -102,6 +102,7 @@ const orderData=orders ?? []
 
   const handleAddtoWishList=useCallback(
     (item:WishList)=>{
+      setToggleHeartIcon(true);
       setWishList((prevWishList)=>{
       const  wishListItems=prevWishList ?? []
      const itemExist=wishListItems.find((wishListItem)=>wishListItem.id===item.id)
@@ -139,6 +140,7 @@ setOrders((prevOrders)=>{
 
   const handleDeleteFromWishList = useCallback(
     (id: string) => {
+      setToggleHeartIcon(false)
       setWishList((prevWishList) => {
         const wishListItems = prevWishList ?? []; // Fallback to empty array if prevCart is null
         return wishListItems.filter((wishListItem) => wishListItem.id !== id);

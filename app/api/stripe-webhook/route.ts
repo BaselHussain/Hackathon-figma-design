@@ -20,23 +20,36 @@ export async function POST(req: NextRequest) {
   }
 
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object;
-    
-    const orderData = {
+    const session = event.data.object as Stripe.Checkout.Session;
+
+    // Check if payment was successful
+    if (session.payment_status !== 'paid') {
+      return new NextResponse('Payment not successful', { status: 400 });
+    }
+
+    // Get customer email from session
+    const customerEmail = session.customer_details?.email || session.customer_email;
+
+    if (!customerEmail) {
+      return new NextResponse('Customer email not found', { status: 400 });
+    }
+
+    const order = {
       _type: "order",
       stripeId: session.id,
-      customerEmail: session.customer_email,
+      customerEmail: customerEmail,
       totalAmount: session.amount_total! / 100, // Convert cents to dollars
-      currency: session.currency,
-      status: "pending",
+      currency: session.currency?.toUpperCase(),
+      status: "completed", // Set to completed since payment succeeded
       createdAt: new Date().toISOString(),
     };
 
     try {
-      const response = await client.create(orderData);
+      const response = await client.create(order);
       console.log("✅ Order saved to Sanity:", response);
     } catch (error) {
       console.error("Sanity Error:", error);
+      return new NextResponse('Failed to save order to Sanity', { status: 500 });
     }
   }
 

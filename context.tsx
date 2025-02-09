@@ -29,7 +29,7 @@ export interface Order{
 interface WishListContextType{
     wishList:WishList[];
     handleAddtoWishList:(item:WishList)=>void;
-    handleDeleteFromWishList:(id:string)=>void
+    handleDeleteFromWishList:(id:string)=>void;
 }
 
 interface CartContextType {

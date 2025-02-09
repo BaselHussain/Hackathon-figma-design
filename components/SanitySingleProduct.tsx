@@ -59,11 +59,17 @@ export default function SanitySingleProduct({ id }: { id: string }) {
 
 const [allProducts,setAllProducts]=useState<SanityProductList[]>()
   const [sanitySingleProduct, setSanitySingleProduct] = useState<SanitySingleProduct>()
-  const [toggleHeartIcon, setToggleHeartIcon] = useState<boolean | null>(null); 
   const [relatedProducts,setRelatedProducts]=useState<SanityProductList[]>([])
   const [tags,setTags]=useState<string[]>([])
+  const { wishList } = wishListObj; 
+  const [isPresentInWishList, setIsPresentInWishList] = useState(() => {
+    return wishList.some((item) => item.id === sanitySingleProduct?._id);
+  });
 
-
+  useEffect(() => {
+    setIsPresentInWishList(wishList.some((item) => item.id === sanitySingleProduct?._id));
+  }, [wishList, sanitySingleProduct]);
+  
   useEffect(() => {
       const fetchAllProducts = async () => {
         const query = `
@@ -132,24 +138,7 @@ const [allProducts,setAllProducts]=useState<SanityProductList[]>()
    
   
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedState = localStorage.getItem(`toggleHeartIcon_${id}`);
-      if (savedState !== null) {
-        setToggleHeartIcon(JSON.parse(savedState)); // Load state from localStorage
-      } else {
-        setToggleHeartIcon(false); // Default to false if no saved state
-      }
-    }
-  }, [id]); // Run only on initial render
 
-  useEffect(() => {
-    if (toggleHeartIcon !== null) {
-      if (typeof window !== "undefined") {
-        localStorage.setItem(`toggleHeartIcon_${id}`, JSON.stringify(toggleHeartIcon)); // Update localStorage
-      }
-    }
-  }, [toggleHeartIcon, id]); // Update localStorage whenever toggleHeartIcon changes
 
   const handleCartClick = () => {
     cartObj.handleAddtoCart({
@@ -162,35 +151,37 @@ const [allProducts,setAllProducts]=useState<SanityProductList[]>()
     toast("Product has been added to your cart");
   }
 
+  
   const handleToggleHeartIcon = () => {
-    if (toggleHeartIcon) {
-      handleDeleteHeartClick()
+    if (isPresentInWishList) {
+      handleDeleteHeartClick();
     } else {
-      handleHeartClick()
+      handleHeartClick();
     }
-  }
-
+  };
+  
   const handleHeartClick = () => {
     wishListObj.handleAddtoWishList({
       id: sanitySingleProduct?._id ?? "",
       title: sanitySingleProduct?.title ?? "",
-      description:sanitySingleProduct?.description ?? "",
+      description: sanitySingleProduct?.description ?? "",
       price: sanitySingleProduct?.price ?? 0,
-      src: sanitySingleProduct?.productImage ?? ""
+      src: sanitySingleProduct?.productImage ?? "",
     });
-    setToggleHeartIcon(true);
+  
+    setIsPresentInWishList(true); // Update state
     toast("Product has been added to WishList");
-  }
-
+  };
+  
   const handleDeleteHeartClick = () => {
     wishListObj.handleDeleteFromWishList(sanitySingleProduct?._id ?? "");
-    setToggleHeartIcon(false);
+  
+    setIsPresentInWishList(false); // Update state
     toast("Product has been removed from WishList");
-  }
+  };
+  
 
-  if (toggleHeartIcon === null) return <div className='flex justify-center items-center h-screen'>
-  <div className='rounded-full border-2 border-r-transparent animate-spin w-16 h-16 border-gray-600'></div>
-    </div>; // Optional loading state
+ 
 
   return (
     <>
@@ -231,7 +222,7 @@ const [allProducts,setAllProducts]=useState<SanityProductList[]>()
       
       <div className='flex items-center space-x-6 mt-8 md:mt-5 lg:mt-10'>
           
-          {toggleHeartIcon ? (
+          {isPresentInWishList? (
                   <FaHeart className='w-5 h-5 text-red-600 cursor-pointer' onClick={handleToggleHeartIcon} />
                 ) : (
                   <FaRegHeart className='w-5 h-5 cursor-pointer' onClick={handleToggleHeartIcon} />
