@@ -133,12 +133,6 @@ const [allProducts,setAllProducts]=useState<SanityProductList[]>()
     handleRelatedProducts()
   },[tags, allProducts, sanitySingleProduct,relatedProducts])
   
-  
-  
-   
-  
-
-
 
   const handleCartClick = () => {
     cartObj.handleAddtoCart({
