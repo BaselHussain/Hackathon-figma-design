@@ -14,7 +14,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const SHEET_SIDES = ["top"] as const
