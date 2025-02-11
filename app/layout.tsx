@@ -3,8 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import CartProvider from "@/CartProvider";
 import { Toaster } from "sonner";
-import { ClerkProvider } from "@/components/clerk-provider"
+import SessionWrapper from "@/SessionWrapper"
 import React from 'react';
+
 
 
 
@@ -30,17 +31,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    
     <html lang="en">
+  <SessionWrapper>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 
-      <ClerkProvider>
+     
             <CartProvider>
               {children}
               <Toaster/>
             </CartProvider>
-            </ClerkProvider>
+           
   
       </body>
+      </SessionWrapper>
     </html>
+   
   );
 }

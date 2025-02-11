@@ -1,6 +1,8 @@
 "use client";
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { CartContext, OrderContext, WishListContext } from './context';
+import React, { useState, useMemo, useCallback, useEffect } from "react";
+import { CartContext, OrderContext, WishListContext } from "./context";
+import { useRouter } from "next/navigation";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 interface Cart {
   id: string;
@@ -11,23 +13,23 @@ interface Cart {
   src: string;
 }
 
-interface WishList{
-  id:string;
-  title:string;
+interface WishList {
+  id: string;
+  title: string;
   description: string;
-  price:number;
-  src:string
-  }
+  price: number;
+  src: string;
+}
 
-  export interface Order{
-    id:number;
-    name:string;
-    email: string;
-    address:string;
-    }
+export interface Order {
+  id: number;
+  name: string;
+  email: string;
+  address: string;
+}
 
 function useLocalStorage<T>(key: string) {
-  const [storedValue, setStoredValue] = useState<T | null>(null); 
+  const [storedValue, setStoredValue] = useState<T | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -60,38 +62,32 @@ function useLocalStorage<T>(key: string) {
 
 export default function CartProvider({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
+  const { data: session } = useSession(); // Get user session from NextAuth
+  const router = useRouter();
+
   const [cart, setCart] = useLocalStorage<Cart[]>("cart");
   const [wishList, setWishList] = useLocalStorage<WishList[]>("wishlist");
   const [orders, setOrders] = useLocalStorage<Order[]>("orders");
-  const [toggleHeartIcon, setToggleHeartIcon] = useLocalStorage<boolean >("toggleHeartIcon"); 
+  const [toggleHeartIcon, setToggleHeartIcon] = useLocalStorage<boolean>("toggleHeartIcon");
 
-  // If the cart is null (first time loading), initialize it as an empty array
   const cartData = cart ?? [];
-const wishListData=wishList ?? []
-const orderData=orders ?? []
+  const wishListData = wishList ?? [];
+  const orderData = orders ?? [];
 
   const total = useMemo(
-    () =>
-      cartData.reduce(
-        (sum, cartItem) => sum + cartItem.price * (cartItem.quantity || 1),
-        0
-      ),
+    () => cartData.reduce((sum, cartItem) => sum + cartItem.price * (cartItem.quantity || 1), 0),
     [cartData]
   );
 
   const handleAddtoCart = useCallback(
     (item: Cart) => {
       setCart((prevCart) => {
-        const cartItems = prevCart ?? []; 
+        const cartItems = prevCart ?? [];
         const itemExists = cartItems.find((cartItem) => cartItem.id === item.id);
         if (itemExists) {
           return cartItems.map((cartItem) =>
-            cartItem.id === item.id
-              ? { ...cartItem, quantity: (cartItem.quantity || 1) + 1 }
-              : cartItem
+            cartItem.id === item.id ? { ...cartItem, quantity: (cartItem.quantity || 1) + 1 } : cartItem
           );
         }
         return [...cartItems, { ...item, quantity: 1 }];
@@ -100,87 +96,80 @@ const orderData=orders ?? []
     [setCart]
   );
 
-  const handleAddtoWishList=useCallback(
-    (item:WishList)=>{
+  const handleAddtoWishList = useCallback(
+    (item: WishList) => {
       setToggleHeartIcon(true);
-      setWishList((prevWishList)=>{
-      const  wishListItems=prevWishList ?? []
-     const itemExist=wishListItems.find((wishListItem)=>wishListItem.id===item.id)
-     if(itemExist){
-      return wishListItems
-     }
-        return [...wishListItems,item]
-      })
-    },[setWishList]
+      setWishList((prevWishList) => {
+        const wishListItems = prevWishList ?? [];
+        const itemExist = wishListItems.find((wishListItem) => wishListItem.id === item.id);
+        if (itemExist) {
+          return wishListItems;
+        }
+        return [...wishListItems, item];
+      });
+    },
+    [setWishList]
   );
 
-  const handleNewOrder=useCallback(
-    (item:Order)=>{
-setOrders((prevOrders)=>{
-  const orderItems=prevOrders ?? []
-  const orderExist=orderItems.find((orderItem)=>orderItem.id === item.id)
-  if(orderExist){
-    return orderItems
-  }
-  return[...orderItems,item]
-})
-  },[]
-)
-
+  const handleNewOrder = useCallback(
+    (item: Order) => {
+      setOrders((prevOrders) => {
+        const orderItems = prevOrders ?? [];
+        const orderExist = orderItems.find((orderItem) => orderItem.id === item.id);
+        if (orderExist) {
+          return orderItems;
+        }
+        return [...orderItems, item];
+      });
+    },
+    [setOrders]
+  );
 
   const handleDeleteItem = useCallback(
     (id: string) => {
-      setCart((prevCart) => {
-        const cartItems = prevCart ?? []; // Fallback to empty array if prevCart is null
-        return cartItems.filter((cartItem) => cartItem.id !== id);
-      });
+      setCart((prevCart) => (prevCart ?? []).filter((cartItem) => cartItem.id !== id));
     },
     [setCart]
   );
 
   const handleDeleteFromWishList = useCallback(
     (id: string) => {
-      setToggleHeartIcon(false)
-      setWishList((prevWishList) => {
-        const wishListItems = prevWishList ?? []; // Fallback to empty array if prevCart is null
-        return wishListItems.filter((wishListItem) => wishListItem.id !== id);
-      });
+      setToggleHeartIcon(false);
+      setWishList((prevWishList) => (prevWishList ?? []).filter((wishListItem) => wishListItem.id !== id));
     },
     [setWishList]
   );
 
   const handleUpdateQuantity = useCallback(
     (id: string, change: number) => {
-      setCart((prevCart) => {
-        const cartItems = prevCart ?? []; // Fallback to empty array if prevCart is null
-        return cartItems.map((cartItem) =>
+      setCart((prevCart) =>
+        (prevCart ?? []).map((cartItem) =>
           cartItem.id === id
-            ? {
-                ...cartItem,
-                quantity: (cartItem.quantity || 1) + change > 0? (cartItem.quantity || 1) + change: 1,
-              }
+            ? { ...cartItem, quantity: Math.max((cartItem.quantity || 1) + change, 1) }
             : cartItem
-        );
-      });
+        )
+      );
     },
     [setCart]
   );
 
-  return (
-    
-    <CartContext.Provider
-      value={{ cart: cartData, handleAddtoCart, handleDeleteItem, handleUpdateQuantity, total }}
-    >
-      <WishListContext.Provider
-        value={{ wishList: wishListData, handleAddtoWishList, handleDeleteFromWishList }}
-      >
-        <OrderContext.Provider
-        value={{orders: orderData,handleNewOrder}}>
-        {children}
+  // ✅ Use NextAuth.js for Authentication
+  const login = async () => {
+    await signIn(); // Redirects to the NextAuth login page
+  };
 
-        </OrderContext.Provider>
-      </WishListContext.Provider>
-    </CartContext.Provider>
-    
+  const logout = async () => {
+    await signOut();
+    router.push("/login"); // Redirect to login page after logout
+  };
+
+  return (
+   
+      <CartContext.Provider value={{ cart: cartData, handleAddtoCart, handleDeleteItem, handleUpdateQuantity, total }}>
+        <WishListContext.Provider value={{ wishList: wishListData, handleAddtoWishList, handleDeleteFromWishList }}>
+          <OrderContext.Provider value={{ orders: orderData, handleNewOrder }}>{children}</OrderContext.Provider>
+        </WishListContext.Provider>
+      </CartContext.Provider>
+  
   );
 }

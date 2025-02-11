@@ -1,111 +1,66 @@
-'use client';
+"use client";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '@/components/ui/input'; // From shadcn
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-// Define Zod schema for validation
-const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z
-    .string()
-    .min(6, 'Password must be at least 6 characters')
-    .max(20, 'Password must not exceed 20 characters'),
-});
 
-// TypeScript types from Zod schema
-type LoginFormValues = z.infer<typeof loginSchema>;
-
-export default function LoginPage() {
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema), // Use Zod for validation
-  });
-
-  const onSubmit = async (data: LoginFormValues) => {
-    try {
-      const res = await fetch('/api2/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (res.ok) {
-        console.log("Hello")
-        router.push('/'); // Redirect on success
-      } else {
-        const response = await res.json();
-        setError(response.error || 'Login failed');
-      }
-    } catch (err) {
-      setError('Something went wrong. Please try again.');
-      console.log(err)
-    }
-  };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className='text-center text-6xl font-mono py-5'>Login</CardTitle>
-        </CardHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent>
-            {/* Email Input */}
-            <div className="space-y-2">
-              <Label htmlFor="email" className='text-lg'>Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter your email"
-                {...register('email')}
-              />
-              {errors.email && (
-                <p className="text-sm text-red-500">{errors.email.message}</p>
-              )}
-            </div>
+    <div className="flex h-screen bg-gray-100">
+      {/* Left Section */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-r from-blue-500 to-purple-600 text-white flex-col items-center justify-center p-10">
+        <h1 className="text-5xl font-bold">Welcome to Bandage</h1>
+        <p className="mt-4 text-lg">Discover the best deals and latest trends!</p>
+      </div>
 
-            {/* Password Input */}
-            <div className="space-y-2 mt-4">
-              <Label htmlFor="password" className='text-lg'>Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                {...register('password')}
-              />
-              {errors.password && (
-                <p className="text-sm text-red-500">{errors.password.message}</p>
-              )}
-            </div>
+      {/* Right Section */}
+      <div className="flex w-full lg:w-1/2 justify-center items-center p-6">
+        <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-3xl font-bold text-center">Login</h2>
+          <p className="text-center text-gray-600 mt-2">
+            Use coupon <span className="font-bold text-blue-500">BANDAGE50</span> to get a $50 discount on your next order!
+          </p>
 
-            {/* General Error Message */}
-            {error && (
-              <p className="mt-4 text-sm text-red-500">{error}</p>
-            )}
-          </CardContent>
+          <div className="mt-6 flex flex-col gap-3">
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mb-2"
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mb-4"
+            />
+            
+            <button
+  className="w-full flex items-center justify-center gap-2 bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition"
+  onClick={() => signIn("github", { callbackUrl: "/" })} // ✅ Redirects to homepage after login
+>
+  Sign in with GitHub
+</button>
 
-          <CardFooter className="flex justify-between">
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
+<button
+  className="w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition"
+  onClick={() => signIn("google", { callbackUrl: "/" })} // ✅ Redirects to homepage after login
+>
+  Sign in with Google
+</button>
+          </div>
+
+          <p className="text-center mt-4 text-gray-600">
+            New here? <a href="#" className="text-blue-500 font-bold hover:underline">Create an account</a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

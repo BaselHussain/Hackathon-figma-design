@@ -14,12 +14,24 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SHEET_SIDES = ["top"] as const
 
 type SheetSide = (typeof SHEET_SIDES)[number]
 
 export function SheetSide() {
+
+  const router=useRouter()
+   const { data: session } = useSession(); // ✅ Get user session
+  const handleCartClick = (e: React.MouseEvent) => {
+      if (!session) {
+        e.preventDefault();
+        alert("You must be logged in to access the cart!");
+      }
+    };
+  
   return (
     <div className="grid grid-cols-2 gap-2 md:hidden">
       {SHEET_SIDES.map((side) => (
@@ -38,10 +50,29 @@ export function SheetSide() {
                    <Link href={'/contact-us'}> <li>Contact</li></Link>
                     </ul>
                     <div className="flex flex-col space-y-3 justify-center items-center">
-                    <p className="flex items-center space-x-1 text-[#23a6f0]"><FaRegUser/><span className='font-bold'>Login / Register</span></p>
+                    {session ? (
+                      <div className='flex items-center space-x-1 lg:space-x-2'>
+                        <img 
+                          src={session.user?.image || "/default-avatar.png"} 
+                          alt="User" 
+                          className="w-8 h-8 rounded-full"
+                        />
+                        <span className="text-[#23a6f0]">{session.user?.name}</span>
+                        <button onClick={() => signOut()} className="font-bold text-[#23a6f0]">
+                          Logout
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => router.push("/login")} // 🔥 Push user to login page
+                        className="text-[#23a6f0] flex items-center space-x-1 lg:space-x-2 font-bold"
+                      >
+                        <FaRegUser/><span className='font-bold'>Login/Register</span>
+                      </button>
+                    )}
                     <p className="text-[#23a6f0] text-center"><BsSearch/></p>
-                   <Link href={'/cart'}> <p className="text-[#23a6f0] text-center "><BsCart/></p></Link>
-                    <p className="text-[#23a6f0] text-center"><IoIosHeartEmpty/></p>
+                   <Link href={'/cart'} onClick={handleCartClick}> <p className="text-[#23a6f0] text-center "><BsCart/></p></Link>
+                    <Link href={'/wishlist'}><p className="text-[#23a6f0] text-center"><IoIosHeartEmpty/></p></Link>
                     </div>
                 
             </div>
