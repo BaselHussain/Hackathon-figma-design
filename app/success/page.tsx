@@ -1,10 +1,10 @@
 import Success from '@/components/Success'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 export default function page() {
   return (
-    <div>
+  <Suspense>
     <Success/>
-    </div>
+    </Suspense>
   )
 }

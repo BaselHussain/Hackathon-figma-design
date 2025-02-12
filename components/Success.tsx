@@ -4,6 +4,14 @@ import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from './ui/button';
 import { useSearchParams } from 'next/navigation';
+import { Montserrat } from "next/font/google";
+
+const Montserratfont = Montserrat({
+  weight: ['400', '500', '600', '700'],
+  style: "normal",
+  subsets: ["latin"]
+})
+
 export default function Success() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
@@ -11,7 +19,7 @@ export default function Success() {
 
   useEffect(() => {
     if (sessionId) {
-      fetch(`/api/payment?session_id=${sessionId}`)
+      fetch(`/api/checkout-sessions?session_id=${sessionId}`)
         .then((res) => res.json())
         .then((data) => {
           setStatus(data.payment_status);
@@ -27,7 +35,7 @@ export default function Success() {
   }, [sessionId]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div className={`${Montserratfont.className} flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6`}>
       <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md text-center">
         <CheckCircle className="text-green-500 w-16 h-16 mx-auto" />
         <h1 className="text-2xl font-bold mt-4 text-gray-800">Payment Successful!</h1>
