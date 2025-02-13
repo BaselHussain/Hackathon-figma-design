@@ -32,7 +32,7 @@ export default function Success() {
             
           }
         })
-        .catch((err) => console.error("Error fetching session:", err));
+        .catch((err) => console.error("Error fetching session=>", err));
     }
   }, [sessionId])
 
