@@ -62,7 +62,7 @@ export default function Checkout() {
 
 <Button className='w-[60%] mx-auto mt-6 md:mt-10' disabled={isClicked} onClick={createStripeSession}>
   
- {isClicked?'Processing...' : "Check Out"}
+ {isClicked?'Processing..' : "Check Out"}
 
   
   </Button>
