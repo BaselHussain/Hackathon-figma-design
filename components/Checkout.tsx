@@ -28,20 +28,11 @@ export default function Checkout() {
   
     try {
       const checkoutSession = await axios.post(`/api/checkout-sessions`, {
-        items: cartObj.cart,
+        cartItems: cartObj.cart,
+        total: cartObj.total, // Assuming total price is stored in cart context
       });
   
       console.log(checkoutSession);
-
-
-
-
-const orderData={
-  _type:'order',
-
-}
-
-
       const result = await stripe?.redirectToCheckout({
         sessionId: checkoutSession.data.id,
       });
@@ -52,11 +43,6 @@ const orderData={
     } catch (error) {
       console.error("Error creating checkout session:", error);
     }
-  
-   
-  
-  
-  
    
   };
   
@@ -84,7 +70,7 @@ const orderData={
         </div>
     </div>
     
-    {/* {isClicked && <CheckOutForm/>} */}
+
     
     </>
   )
