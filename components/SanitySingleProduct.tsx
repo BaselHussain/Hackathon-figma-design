@@ -128,7 +128,7 @@ const [allProducts,setAllProducts]=useState<SanityProductList[]>()
       });
     
       setRelatedProducts(related ?? []);
-      console.log(relatedProducts)
+      
     };
     handleRelatedProducts()
   },[tags, allProducts, sanitySingleProduct,relatedProducts])
