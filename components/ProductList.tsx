@@ -43,7 +43,9 @@ export default function ProductList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`/api/products?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`);
+        const response = await fetch(`/api/products?apiKey=${process.env.NEXT_PUBLIC_API_KEY}`,{
+          cache:'force-cache'
+        });
   
         if (!response.ok) {
           throw new Error('Failed to fetch products');
